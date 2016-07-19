@@ -1,0 +1,28 @@
+{
+  "name": "mario",
+  "version": "1.0.0",
+  "description": "Slack bot user for tracking and ranking mario kart results",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/groppe/mario.git"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "mario",
+    "kart"
+  ],
+  "author": "Joshua Groppe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/groppe/mario/issues"
+  },
+  "homepage": "https://github.com/groppe/mario#readme",
+  "dependencies": {
+    "botkit": "^0.2.2"
+  }
+}

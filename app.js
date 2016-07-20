@@ -4,7 +4,7 @@
 
  
  // TOKEN is required for connecting to Slack
-if (!process.env.TOKEN) {
+if (!process.env.SLACK_TOKEN) {
 	console.log('Error: Please specify TOKEN in the environment.');
     process.exit(1);
 }
@@ -12,7 +12,7 @@ if (!process.env.TOKEN) {
 var Botkit = require('botkit');
 var controller = Botkit.slackbot();
 var bot = controller.spawn({
-  token: process.env.TOKEN
+  token: process.env.SLACK_TOKEN
 })
 
 bot.startRTM(function(err,bot,payload) {

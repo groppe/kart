@@ -12,7 +12,7 @@ if (!process.env.TOKEN) {
 var Botkit = require('botkit');
 var controller = Botkit.slackbot();
 var bot = controller.spawn({
-  token: process.env.TOKEN.
+  token: process.env.TOKEN
 })
 
 bot.startRTM(function(err,bot,payload) {

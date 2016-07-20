@@ -25,5 +25,6 @@ controller.hears(["keyword","^pattern$"],["direct_message","direct_mention","men
   // do something to respond to message
   // all of the fields available in a normal Slack message object are available
   // https://api.slack.com/events/message
+  console.log("Received message!");
   bot.reply(message,'You used a keyword!');
 });

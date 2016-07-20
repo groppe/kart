@@ -4,7 +4,8 @@
   "description": "Slack bot user for tracking and ranking mario kart results",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,8 @@
     "slack",
     "bot",
     "mario",
-    "kart"
+    "kart",
+    "ranking"
   ],
   "author": "Joshua Groppe",
   "license": "MIT",

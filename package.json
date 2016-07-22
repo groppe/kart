@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/groppe/mario#readme",
   "dependencies": {
-    "botkit": "^0.2.2"
+    "botkit": "^0.2.2",
+    "botkit-storage-mongo": "^1.0.4"
   }
 }

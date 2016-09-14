@@ -2,7 +2,7 @@
   "name": "mario",
   "version": "1.0.0",
   "description": "Slack bot user for tracking and ranking mario kart results",
-  "main": "app.js",
+  "main": "old.app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,7 +25,11 @@
   },
   "homepage": "https://github.com/groppe/mario#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "botkit": "^0.2.2",
-    "botkit-storage-mongo": "^1.0.4"
+    "botkit-storage-mongo": "^1.0.4",
+    "bower": "^1.7.9",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.5"
   }
 }

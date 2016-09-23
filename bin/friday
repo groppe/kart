@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var requester = require('request');
+
+if (!process.env.WEBHOOK_URL) 
+{
+	console.log('Error: Please specify WEBHOOK_PATH in the environment.');
+    process.exit(1);
+}
+else if (!process.env.MONGODB_URI)
+{
+	console.log('Error: Please specify MONGODB_URI in the environment.');
+    process.exit(1);
+}
+else if (!process.env.DEPLOYMENT_ENVIRONMENT)
+{
+	console.log('Error: Please specify DEPLOYMENT_ENVIRONMENT in the environment.');
+    process.exit(1);
+}
+
+// get the day of the week
+if (new Date().getDay() != 5)
+{
+	process.exit();
+}
+
+// payload
+var post_data = {
+	'text': 'It\'s Ocho Friday!'
+};
+
+// options
+var post_options = {
+	url: process.env.WEBHOOK_URL,
+	method: 'POST',
+	json: post_data
+};
+
+// request
+requester(post_options);

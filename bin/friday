@@ -20,7 +20,7 @@ var weekdays = [
 	'It\'s Typical Tuesday.',
 	'It\'s Wild Wednesday!',
 	'It\'s Thursday... is anyone around?',
-	'It\'s Ocho Friday!',
+	'It\'s Ocho Friday!'
 ];
 
 // payload

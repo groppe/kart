@@ -9,7 +9,7 @@ if (!process.env.WEBHOOK_URL)
 }
 
 // get the day of the week
-if (new Date().getDay() > 5)
+if (new Date().getDay() == 5 || new Date().getDay() == 0)
 {
 	process.exit();
 }
@@ -25,7 +25,7 @@ var weekdays = [
 
 // payload
 var post_data = {
-	'text': weekdays[new Date().getDay()]
+	'text': weekdays[new Date().getDay() - 1]
 };
 
 // options

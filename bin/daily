@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+var requester = require('request');
+
+if (!process.env.WEBHOOK_URL) 
+{
+	console.log('Error: Please specify WEBHOOK_PATH in the environment.');
+    process.exit(1);
+}
+
+// payload
+var post_data = {
+	'text': "It\'s pleasure time."
+};
+
+// options
+var post_options = {
+	url: process.env.WEBHOOK_URL,
+	method: 'POST',
+	json: post_data
+};
+
+// request
+requester(post_options);

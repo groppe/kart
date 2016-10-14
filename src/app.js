@@ -82,7 +82,12 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
- 	res.send('It\s-a me, mario!');
+	res.setHeader('Content-Type', 'application/json');
+	var response = {
+		response_type: 'in_channel',
+    	text: 'It\s-a me, mario!',
+	};
+ 	res.send(JSON.stringify(response));
 });
 
 // SLACK BOT INTEGRATION

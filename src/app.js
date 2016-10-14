@@ -81,6 +81,10 @@ app.get('/', function (req, res) {
  	res.send('Hello World!');
 });
 
+app.post('/', function (req, res) {
+ 	res.send('It\s-a me, mario!');
+});
+
 // SLACK BOT INTEGRATION
 
 // create the bot

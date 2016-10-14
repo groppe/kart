@@ -2,9 +2,9 @@
   "name": "mario",
   "version": "1.0.0",
   "description": "Slack bot user for tracking and ranking mario kart results",
-  "main": "old.app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -20,7 +20,9 @@ else if (!process.env.DEPLOYMENT_ENVIRONMENT)
 	console.log('Error: Please specify DEPLOYMENT_ENVIRONMENT in the environment.');
     process.exit(1);
 }
+
 // dependencies
+const PORT = process.env.PORT || 80;
 var express = require("express"),
 	bodyParser = require("body-parser"),
 	mongodb = require("mongodb"),
@@ -61,7 +63,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 	db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
 
 	// initialize the express app
-	var server = app.listen(80, function () {
+	var server = app.listen(PORT, function () {
 		var port = server.address().port;
     	console.log("App now running on port", port);
 	});

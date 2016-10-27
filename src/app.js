@@ -186,7 +186,7 @@ controller.hears(
 				for (var i = 0; i < players.length; ++i)
 				{
 					var player = players[i];
-					table.push([ (i + 1).toString(), player.name, player.character, (player.average_score / player.rounds_played), player.games_played, player.rounds_played]);
+					table.push([ (i + 1).toString(), player.name, player.character, Math.round(player.average_score / player.rounds_played), player.games_played, player.rounds_played]);
 				}
 
 				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c', 'c' ] });

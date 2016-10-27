@@ -172,7 +172,7 @@ controller.hears(
 							player = players.filter(function (player) { return (player._id === score.player_id) })[0];
 
 						player.games_played += parseInt(game.games);
-						player.average_score += player.average_score;
+						player.average_score += score.average;
 						player.rounds_played++;
 					}
 				}

@@ -8,9 +8,15 @@ if (!process.env.WEBHOOK_URL)
     process.exit(1);
 }
 
+// get the day of the week
+if (new Date().getDay() == 5 || new Date().getDay() == 0)
+{
+	process.exit();
+}
+
 // payload
 var post_data = {
-	'text': "It\'s pleasure time."
+	'text': "PLEASURE TIME."
 };
 
 // options

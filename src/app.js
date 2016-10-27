@@ -27,7 +27,8 @@ var express = require("express"),
 	bodyParser = require("body-parser"),
 	mongodb = require("mongodb"),
 	Botkit = require('botkit'),
-	requester = require('request');
+	requester = require('request'),
+	TextTable = require('text-table');
 
 // create the express app
 var app = express();
@@ -82,6 +83,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
+	console.log(req);
 	res.setHeader('Content-Type', 'application/json');
 	var response = {
 		response_type: 'in_channel',
@@ -136,13 +138,63 @@ controller.hears(
 		text += '\n1. add character "<character name>" <character icon url>';
 		text += '\n2. characters';
 		text += '\n3. my character is "<valid character name>"';
-		text += '\n4. played <#> games, <user1> <score1>, <user2> <score2>[, <user3> <score3>]';
+		text += '\n4. my name is "<name you want to be called>"';
+		text += '\n5. played <#> games, <user1> <score1>, <user2> <score2>[, <user3> <score3>]';
+		text += '\n6. bigboard';
 		text += '```';
 		bot.reply(message, text);
 	}
 );
 
 // TODO: Rankings
+controller.hears(
+	['^bigboard$'],
+	['direct_mention'],
+	function(bot, message) {
+		db_collection_players.find().toArray(function (players_error, players) {
+			db_collection_games.find().toArray(function (games_error, games) {
+				var board = {};
+
+				for (var i = 0; i < players.length; ++i)
+				{
+					players[i].average_score = 0;
+					players[i].games_played = 0;
+					players[i].rounds_played = 0;
+				}
+
+				for (var i = 0; i < games.length; ++i)
+				{
+					var game = games[i];
+
+					for (var k = 0; k < game.scores.length; ++k)
+					{
+						var score = game.scores[k],
+							player = players.filter(function (player) { return (player._id === score.player_id) })[0];
+
+						player.games_played += parseInt(game.games);
+						player.average_score += score.average;
+						player.rounds_played++;
+					}
+				}
+
+				// sort by average score
+				players.sort(function (a, b) { return a.average_score - b.average_score });
+
+				var text = '*BOARD*\n';
+				var table = [[ 'Rank', 'Name', 'Character', 'Average', 'Games']];
+
+				for (var i = 0; i < players.length; ++i)
+				{
+					var player = players[i];
+					table.push([ (i + 1).toString(), player.name, player.character, player.average_score, player.games_played]);
+				}
+
+				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c', 'c' ] });
+				bot.reply(message, text + text_table);
+			});
+		});
+	}
+);
 
 // add character
 controller.hears(
@@ -231,7 +283,7 @@ controller.hears(
 			{
 				character = result[0];
 
-				db_collection_players.update({ _id: message.user }, { character: character.name }, { upsert: true }, function (error, result) {
+				db_collection_players.update({ _id: message.user }, { $set: { 'character': character.name }}, { upsert: true }, function (error, result) {
 					if (error)
 					{
 						bot.reply(message, 'Sorry, <@' + message.user + '>, I wasn\'t able to set that as your character.');
@@ -248,11 +300,88 @@ controller.hears(
 	}
 );
 
+// choose a name
+controller.hears(
+	['^my name is \".*\"$'],
+	['direct_mention', 'mention', 'ambient'],
+	function(bot, message) {
+		var character;
+
+		// extract the name
+		var name = message.text.split(/[""]/)[1];
+		
+		// validate it
+		if (!name.length || name.length === 0)
+		{
+			bot.reply(message, 'Sorry, <@' + message.user + '>, that is not a valid character name.');
+			return;
+		}
+
+		db_collection_players.update({ _id: message.user }, { $set: { 'name': name }}, { upsert: true }, function (error, result) {
+			if (error)
+			{
+				bot.reply(message, 'Sorry, <@' + message.user + '>, I wasn\'t able to set that as your name.');
+				return;
+			}
+			else
+			{
+				// reply with the user's new title
+				bot.reply(message, 'Alright, <@' + message.user + '>, your name is ' + name + '!');
+			}
+		});
+	}
+);
+
 // game results
 controller.hears(
 	['^(played \\d+ games)((,\\s(<@\\w+>)\\s([0-9]+))+)$'],
 	['direct_mention'],
 	function(bot, message) {
-		console.log(message);
+		var components = message.text.split(",");
+
+		// get the number of games played
+		var game_count = components[0].split(" ")[1];
+
+		var round = {
+			games: parseInt(game_count),
+			datetime: Date.now(),
+			scores: [
+			]
+		};
+
+		for (var i = 1; i < components.length; ++i) {
+			var player_score = {
+				player_id: components[i].split(" ")[1].split(/[@>]/)[1],
+				score: components[i].split(" ")[2],
+				average: components[i].split(" ")[2] / game_count
+			};
+
+			round.scores.push(player_score);
+		}
+
+		db_collection_games.insert(round, function(error, result) {
+			if (error)
+			{
+				bot.reply(message, 'Sorry, I wasn\'t able to save that round.');
+				return;
+			}
+			else
+			{
+				bot.reply(message, 'The round has been logged.');
+
+				var players = db_collection_players.find().toArray(function (error, result) {
+
+					var text = 'You played ' + game_count + ' games. The scores were: ';
+
+					for (var i = 0; i < round.scores.length; ++i)
+					{
+						var player = result.filter(function(player) { return (player._id === round.scores[i].player_id) })[0];
+						text += ('\n' + player.name + ': ' + round.scores[i].score);
+					}
+
+					bot.reply(message, text);
+				});
+			}
+		});
 	}
 );

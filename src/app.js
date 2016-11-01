@@ -154,7 +154,7 @@ controller.hears(
 		db_collection_players.find().toArray(function (players_error, players) {
 			db_collection_games.find().toArray(function (games_error, games) {
 				var board = {};
-
+					
 				for (var i = 0; i < players.length; ++i)
 				{
 					players[i].average_score = 0;
@@ -178,18 +178,18 @@ controller.hears(
 				}
 
 				// sort by average score
-				players.sort(function (a, b) { return b.average_score - a.average_score });
+				players.sort(function (a, b) { return (b.average_score / b.rounds_played) - (a.average_score / a.rounds_played) });
 
 				var text = '*BOARD*\n';
-				var table = [[ 'Rank', 'Name', 'Character', 'Average', 'Games', 'Rounds']];
+				var table = [[ 'Rank', 'Name', 'Average', 'Character']];
 
 				for (var i = 0; i < players.length; ++i)
 				{
 					var player = players[i];
-					table.push([ (i + 1).toString(), player.name, player.character, (player.average_score / player.rounds_played).toFixed(2), player.games_played, player.rounds_played]);
+					table.push([ (i + 1).toString(), player.name, (player.average_score / player.rounds_played).toFixed(2), player.character]);
 				}
 
-				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c', 'c' ] });
+				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c' ] });
 				bot.reply(message, text + text_table);
 			});
 		});
@@ -261,7 +261,7 @@ controller.hears(
 	['direct_mention', 'mention', 'ambient'],
 	function(bot, message) {
 		var character;
-
+		
 		// extract the name of the character
 		var name = message.text.split(/[""]/)[1];
 		
@@ -340,7 +340,7 @@ controller.hears(
 		var components = message.text.split(",");
 
 		// get the number of games played
-		var game_count = components[0].split(" ")[1];
+		var game_count = parseInt(components[0].split(" ")[1]);
 
 		var round = {
 			games: parseInt(game_count),
@@ -353,7 +353,7 @@ controller.hears(
 			var player_score = {
 				player_id: components[i].split(" ")[1].split(/[@>]/)[1],
 				score: components[i].split(" ")[2],
-				average: components[i].split(" ")[2] / game_count
+				average: (parseInt(components[i].split(" ")[2]) / game_count).toFixed(2)
 			};
 
 			round.scores.push(player_score);

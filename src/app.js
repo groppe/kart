@@ -62,6 +62,9 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 	db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
 	db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
 	db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
+	//db_collection_players = db.collection('HEROKU_PLAYER');
+	//db_collection_games = db.collection('HEROKU_GAME');
+	//db_collection_characters = db.collection('HEROKU_CHARACTER');
 
 	// initialize the express app
 	var server = app.listen(PORT, function () {
@@ -157,7 +160,7 @@ controller.hears(
 					
 				for (var i = 0; i < players.length; ++i)
 				{
-					players[i].average_score = 0;
+					players[i].average_score = 0.0;
 					players[i].games_played = 0;
 					players[i].rounds_played = 0;
 				}
@@ -172,7 +175,7 @@ controller.hears(
 							player = players.filter(function (player) { return (player._id === score.player_id) })[0];
 
 						player.games_played += parseInt(game.games);
-						player.average_score += score.average;
+						player.average_score += parseFloat(score.average);
 						player.rounds_played++;
 					}
 				}

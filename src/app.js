@@ -59,12 +59,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 	console.log("Database connection ready");
 
 	// gather the collections
-	db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
-	db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
-	db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
-	//db_collection_players = db.collection('HEROKU_PLAYER');
-	//db_collection_games = db.collection('HEROKU_GAME');
-	//db_collection_characters = db.collection('HEROKU_CHARACTER');
+	//db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
+	//db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
+	//db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
+	db_collection_players = db.collection('HEROKU_PLAYER');
+	db_collection_games = db.collection('HEROKU_GAME');
+	db_collection_characters = db.collection('HEROKU_CHARACTER');
 
 	// initialize the express app
 	var server = app.listen(PORT, function () {
@@ -154,8 +154,11 @@ controller.hears(
 	['^bigboard$'],
 	['direct_mention'],
 	function(bot, message) {
+		var resultsDate = new Date();
+		resultsDate.setDate(resultsDate.getDate() - 15);
+
 		db_collection_players.find().toArray(function (players_error, players) {
-			db_collection_games.find().toArray(function (games_error, games) {
+			db_collection_games.find({ datetime: { $gte: resultsDate.getTime() } }).toArray(function (games_error, games) {
 				var board = {};
 					
 				for (var i = 0; i < players.length; ++i)

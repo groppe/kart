@@ -59,12 +59,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 	console.log("Database connection ready");
 
 	// gather the collections
-	//db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
-	//db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
-	//db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
-	db_collection_players = db.collection('HEROKU_PLAYER');
-	db_collection_games = db.collection('HEROKU_GAME');
-	db_collection_characters = db.collection('HEROKU_CHARACTER');
+	db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
+	db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
+	db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
+	//db_collection_players = db.collection('HEROKU_PLAYER');
+	//db_collection_games = db.collection('HEROKU_GAME');
+	//db_collection_characters = db.collection('HEROKU_CHARACTER');
 
 	// initialize the express app
 	var server = app.listen(PORT, function () {

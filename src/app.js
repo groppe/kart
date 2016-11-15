@@ -373,16 +373,14 @@ controller.hears(
 			}
 			else
 			{
-				bot.reply(message, 'The round has been logged.');
-
 				var players = db_collection_players.find().toArray(function (error, result) {
 
-					var text = 'You played ' + game_count + ' games. The scores were: ';
+					var text = 'You played ' + game_count + ' games. The average scores were: ';
 
 					for (var i = 0; i < round.scores.length; ++i)
 					{
 						var player = result.filter(function(player) { return (player._id === round.scores[i].player_id) })[0];
-						text += ('\n' + player.name + ': ' + round.scores[i].score);
+						text += ('\n' + player.name + ': ' + (round.scores[i].score / game_count).toFixed(2));
 					}
 
 					bot.reply(message, text);

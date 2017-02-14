@@ -28,7 +28,8 @@ var express = require("express"),
 	mongodb = require("mongodb"),
 	Botkit = require('botkit'),
 	requester = require('request'),
-	TextTable = require('text-table');
+	TextTable = require('text-table'),
+	Q = require('q');
 
 // create the express app
 var app = express();
@@ -59,12 +60,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 	console.log("Database connection ready");
 
 	// gather the collections
-	db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
-	db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
-	db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
-	//db_collection_players = db.collection('HEROKU_PLAYER');
-	//db_collection_games = db.collection('HEROKU_GAME');
-	//db_collection_characters = db.collection('HEROKU_CHARACTER');
+	//db_collection_players = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_PLAYER');
+	//db_collection_games = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_GAME');
+	//db_collection_characters = db.collection(process.env.DEPLOYMENT_ENVIRONMENT + '_CHARACTER');
+	db_collection_players = db.collection('HEROKU_PLAYER');
+	db_collection_games = db.collection('HEROKU_GAME');
+	db_collection_characters = db.collection('HEROKU_CHARACTER');
 
 	// initialize the express app
 	var server = app.listen(PORT, function () {
@@ -157,42 +158,80 @@ controller.hears(
 		var resultsDate = new Date();
 		resultsDate.setDate(resultsDate.getDate() - 15);
 
+		// get all of the players
 		db_collection_players.find().toArray(function (players_error, players) {
-			db_collection_games.find({ datetime: { $gte: resultsDate.getTime() } }).toArray(function (games_error, games) {
-				var board = {};
+			var board = {}, promises = [];
+
+			players.forEach(function (player) {
+				var deferred = Q.defer();
+
+				promises.push(deferred.promise);
+				player.average_score = 0.0;
+				player.total_score = 0.0;
+				player.games_played = 0;
+				player.rounds_played = 0;
+
+				// get the last 25 games that this player was a part of, and only their score
+				db_collection_games.aggregate(
+					{ 
+						$match: { 
+							scores: { 
+								$elemMatch: { 
+									player_id: player._id 
+								}
+							}
+						} 
+					},
+					{ $sort: { datetime: -1 } },
+					{ $limit: 25 }
+					/*{ $project: {
+						games: 1,
+						scores: { 
+							$filter: {
+								input: '$scores',
+								as: 'score',
+								cond: { '$eq': [ '$$score.player_id', player._id ] }
+							}
+						}
+					}}*/
+				).toArray(function (games_error, games) {
+					if (games_error) {
+						deferred.reject(new Error(games_error));
+					} else { 
+						player.games = games;
+						deferred.resolve(player);
+					}
+				});
+			});
+
+			Q.allSettled(promises).then(function (results) {
+				var player_results = [];
+
+				// calculate each players information
+				results.forEach(function (result) {
+					var player = result.value;
 					
-				for (var i = 0; i < players.length; ++i)
-				{
-					players[i].average_score = 0.0;
-					players[i].games_played = 0;
-					players[i].rounds_played = 0;
-				}
-
-				for (var i = 0; i < games.length; ++i)
-				{
-					var game = games[i];
-
-					for (var k = 0; k < game.scores.length; ++k)
-					{
-						var score = game.scores[k],
-							player = players.filter(function (player) { return (player._id === score.player_id) })[0];
-
+					player.games.forEach(function (game, index) {
+						var score = game.scores.filter(function (score) { return score.player_id === player._id })[0];
 						player.games_played += parseInt(game.games);
 						player.average_score += parseFloat(score.average);
+						player.total_score += parseInt(score.score)
 						player.rounds_played++;
-					}
-				}
+					});
 
-				// sort by average score
-				players.sort(function (a, b) { return (b.average_score / b.rounds_played) - (a.average_score / a.rounds_played) });
-
+					player_results.push(player);
+				})
+				
+				// sort the players
+				players.sort(function (a, b) { return (b.total_score / b.games_played) - (a.total_score / a.games_played) });
+				
 				var text = '*BOARD*\n';
 				var table = [[ 'Rank', 'Name', 'Average', 'Character']];
 
 				for (var i = 0; i < players.length; ++i)
 				{
 					var player = players[i];
-					table.push([ (i + 1).toString(), player.name, (player.average_score / player.rounds_played).toFixed(2), player.character]);
+					table.push([ (i + 1).toString(), player.name, (player.total_score / player.games_played).toFixed(2), player.character]);
 				}
 
 				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c' ] });

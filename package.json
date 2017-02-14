@@ -25,12 +25,14 @@
   },
   "homepage": "https://github.com/groppe/mario#readme",
   "dependencies": {
+    "Q": "0.0.1",
     "body-parser": "^1.15.2",
     "botkit": "^0.2.2",
     "botkit-storage-mongo": "^1.0.4",
     "bower": "^1.7.9",
     "express": "^4.14.0",
     "mongodb": "^2.2.5",
+    "q": "^1.4.1",
     "text-table": "^0.2.0"
   }
 }

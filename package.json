@@ -34,5 +34,9 @@
     "mongodb": "^2.2.5",
     "q": "^1.4.1",
     "text-table": "^0.2.0"
+  },
+  "devDependencies": {
+    "dateformat": "^2.0.0",
+    "plotly": "^1.0.6"
   }
 }

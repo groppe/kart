@@ -29,7 +29,10 @@ var express = require("express"),
 	Botkit = require('botkit'),
 	requester = require('request'),
 	TextTable = require('text-table'),
-	Q = require('q');
+	Plotly = require('plotly')("jgroppe", "hOvosfAJF74xOWSPKJh5"),
+	fs = require('fs'),
+	Q = require('q'),
+	dateFormat = require('dateformat');
 
 // create the express app
 var app = express();
@@ -150,13 +153,112 @@ controller.hears(
 	}
 );
 
-// TODO: Rankings
+// update the plot
+var updatePlot = function() {
+	var resultsDate = new Date();
+ 	resultsDate.setDate(resultsDate.getDate() - 30);
+
+	db_collection_players.find().toArray(function (players_error, players) {
+		var board = {}, promises = [];
+
+		players.forEach(function (player) {
+			var deferred = Q.defer();
+			promises.push(deferred.promise);
+
+			// get the games from the last 25 days
+			db_collection_games.aggregate([
+				{ 
+					$match: { 
+						scores: { 
+							$elemMatch: { 
+								player_id: player._id 
+							}
+						},
+						datetime: {
+							$gte: resultsDate.getTime()
+						}
+					} 
+				},
+				{ 
+					$sort: { 
+						datetime: -1 
+					} 
+				},
+				{ 
+					$project: {
+						games: 1,
+						datetime: 1,
+						scores: { 
+							$filter: {
+								input: '$scores',
+								as: 'score',
+								cond: { '$eq': [ '$$score.player_id', player._id ] }
+							}
+						}
+					}
+				}
+			]
+			).toArray(function (games_error, games) {
+				if (games_error) {
+					deferred.reject(new Error(games_error));
+				} else { 
+					player.games = games;
+					deferred.resolve(player);
+				}
+			});
+		});
+
+		Q.allSettled(promises).then(function (results) {
+			var graph_data = [];
+
+			// format players game information
+			results.forEach(function (result) {
+				var player = result.value;
+				var entry = {
+						x: [],
+						y: [],
+						type: 'scatter',
+						line: { shape: 'spline' },
+						mode: 'lines',
+						name: player.name
+					};
+				
+				player.games.forEach(function (game, index) {
+					var score = game.scores[0];
+					entry.x.push(dateFormat(new Date(game.datetime), 'yyyy-mm-dd H:MM:ss'));
+					entry.y.push(score.average);
+				});
+				
+				graph_data.push(entry);
+			})
+
+			var graphOptions = { 
+				filename: 'mario', 
+				fileopt: 'overwrite'
+			};
+
+			Plotly.plot(graph_data, graphOptions, function (err, msg) {
+	    		if (err) {
+	    			return console.log(err);
+	    		}
+			});
+		});
+	});
+};
+
+controller.hears(
+	['^chart$'],
+	['direct_mention'],
+	function(bot, message) {
+		bot.reply(message, 'https://plot.ly/~jgroppe/4.embed');
+	}
+);
+
+// rankings
 controller.hears(
 	['^bigboard$'],
 	['direct_mention'],
 	function(bot, message) {
-		var resultsDate = new Date();
-		resultsDate.setDate(resultsDate.getDate() - 15);
 
 		// get all of the players
 		db_collection_players.find().toArray(function (players_error, players) {
@@ -172,7 +274,7 @@ controller.hears(
 				player.rounds_played = 0;
 
 				// get the last 25 games that this player was a part of, and only their score
-				db_collection_games.aggregate(
+				db_collection_games.aggregate([
 					{ 
 						$match: { 
 							scores: { 
@@ -182,18 +284,27 @@ controller.hears(
 							}
 						} 
 					},
-					{ $sort: { datetime: -1 } },
-					{ $limit: 25 }
-					/*{ $project: {
-						games: 1,
-						scores: { 
-							$filter: {
-								input: '$scores',
-								as: 'score',
-								cond: { '$eq': [ '$$score.player_id', player._id ] }
+					{ 
+						$sort: { 
+							datetime: -1 
+						} 
+					},
+					{ 
+						$limit: 25 
+					},
+					{ 
+						$project: {
+							games: 1,
+							scores: { 
+								$filter: {
+									input: '$scores',
+									as: 'score',
+									cond: { '$eq': [ '$$score.player_id', player._id ] }
+								}
 							}
 						}
-					}}*/
+					}
+				]
 				).toArray(function (games_error, games) {
 					if (games_error) {
 						deferred.reject(new Error(games_error));
@@ -212,7 +323,7 @@ controller.hears(
 					var player = result.value;
 					
 					player.games.forEach(function (game, index) {
-						var score = game.scores.filter(function (score) { return score.player_id === player._id })[0];
+						var score = game.scores[0];
 						player.games_played += parseInt(game.games);
 						player.average_score += parseFloat(score.average);
 						player.total_score += parseInt(score.score)
@@ -236,6 +347,8 @@ controller.hears(
 
 				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c' ] });
 				bot.reply(message, text + text_table);
+
+				updatePlot();
 			});
 		});
 	}
@@ -423,6 +536,8 @@ controller.hears(
 					}
 
 					bot.reply(message, text);
+
+					updatePlot();
 				});
 			}
 		});

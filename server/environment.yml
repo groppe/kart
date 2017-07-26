@@ -1,0 +1,4 @@
+MARIO_MONGO_URI: <your-mongo-uri>
+MARIO_MONGO_DB: <your-mongo-db>
+PLOTLY_USERNAME: <your-plotly-username>
+PLOTLY_API_KEY: <your-plotly-api-key>

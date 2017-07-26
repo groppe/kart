@@ -1,0 +1,18 @@
+service: kartskill
+
+provider:
+  name: aws
+  runtime: python2.7
+  environment:
+    MARIO_MONGO_URI: ${file(./environment.yml):MARIO_MONGO_URI}
+    MARIO_MONGO_DB: ${file(./environment.yml):MARIO_MONGO_DB}
+    PLOTLY_USERNAME: ${file(./environment.yml):PLOTLY_USERNAME}
+    PLOTLY_API_KEY: ${file(./environment.yml):PLOTLY_API_KEY}
+
+functions:
+  bigboard:
+    handler: slackHandler.bigboard
+    events:
+      - http:
+          path: slack/bigboard
+          method: get

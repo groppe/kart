@@ -1,0 +1,28 @@
+{
+  "name": "kartskill",
+  "version": "1.0.0",
+  "description": "mario kart game tracking and player skill calculation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/groppe/mario.git"
+  },
+  "keywords": [
+    "python",
+    "node",
+    "mario",
+    "kart",
+    "serverless",
+    "lambda",
+    "aws"
+  ],
+  "author": "Joshua Groppe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/groppe/mario/issues"
+  },
+  "homepage": "https://github.com/groppe/mario#readme"
+}

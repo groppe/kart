@@ -19,7 +19,7 @@ def bigboard(event, context):
 
     # add player data to table
     for index, player in enumerate(boardData):
-        table.add_row([index, player['name'], player['character'], player['average']])
+        table.add_row([(index + 1), player['name'], player['character'], player['average']])
 
     # convert the table to a string
     table_string = '```' + table.get_string(border=True) + '```'

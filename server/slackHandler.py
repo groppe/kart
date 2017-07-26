@@ -15,11 +15,11 @@ def bigboard(event, context):
     boardData = mario.bigboard()
 
     # initialize the text table
-    table = prettytable.PrettyTable(['Player', 'Character', 'Average'])
+    table = prettytable.PrettyTable(['Rank', 'Player', 'Character', 'Average'])
 
     # add player data to table
-    for player in boardData:
-        table.add_row([player['name'], player['character'], player['average']])
+    for index, player in enumerate(boardData):
+        table.add_row([index, player['name'], player['character'], player['average']])
 
     # convert the table to a string
     table_string = '```' + table.get_string(border=True) + '```'

@@ -147,7 +147,6 @@ controller.hears(
 		text += '\n3. my character is "<valid character name>"';
 		text += '\n4. my name is "<name you want to be called>"';
 		text += '\n5. played <#> games, <user1> <score1>, <user2> <score2>[, <user3> <score3>]';
-		text += '\n6. bigboard';
 		text += '```';
 		bot.reply(message, text);
 	}
@@ -251,106 +250,6 @@ controller.hears(
 	['direct_mention'],
 	function(bot, message) {
 		bot.reply(message, 'https://plot.ly/~jgroppe/4.embed');
-	}
-);
-
-// rankings
-controller.hears(
-	['^bigboard$'],
-	['direct_mention'],
-	function(bot, message) {
-
-		// get all of the players
-		db_collection_players.find().toArray(function (players_error, players) {
-			var board = {}, promises = [];
-
-			players.forEach(function (player) {
-				var deferred = Q.defer();
-
-				promises.push(deferred.promise);
-				player.average_score = 0.0;
-				player.total_score = 0.0;
-				player.games_played = 0;
-				player.rounds_played = 0;
-
-				// get the last 25 games that this player was a part of, and only their score
-				db_collection_games.aggregate([
-					{ 
-						$match: { 
-							scores: { 
-								$elemMatch: { 
-									player_id: player._id 
-								}
-							}
-						} 
-					},
-					{ 
-						$sort: { 
-							datetime: -1 
-						} 
-					},
-					{ 
-						$limit: 25 
-					},
-					{ 
-						$project: {
-							games: 1,
-							scores: { 
-								$filter: {
-									input: '$scores',
-									as: 'score',
-									cond: { '$eq': [ '$$score.player_id', player._id ] }
-								}
-							}
-						}
-					}
-				]
-				).toArray(function (games_error, games) {
-					if (games_error) {
-						deferred.reject(new Error(games_error));
-					} else { 
-						player.games = games;
-						deferred.resolve(player);
-					}
-				});
-			});
-
-			Q.allSettled(promises).then(function (results) {
-				var player_results = [];
-
-				// calculate each players information
-				results.forEach(function (result) {
-					var player = result.value;
-					
-					player.games.forEach(function (game, index) {
-						var score = game.scores[0];
-						player.games_played += parseInt(game.games);
-						player.average_score += parseFloat(score.average);
-						player.total_score += parseInt(score.score)
-						player.rounds_played++;
-					});
-
-					player_results.push(player);
-				})
-				
-				// sort the players
-				players.sort(function (a, b) { return (b.total_score / b.games_played) - (a.total_score / a.games_played) });
-				
-				var text = '*BOARD*\n';
-				var table = [[ 'Rank', 'Name', 'Average', 'Character']];
-
-				for (var i = 0; i < players.length; ++i)
-				{
-					var player = players[i];
-					table.push([ (i + 1).toString(), player.name, (player.total_score / player.games_played).toFixed(2), player.character]);
-				}
-
-				var text_table = TextTable(table, { align: [ 'l', 'c', 'c', 'c' ] });
-				bot.reply(message, text + text_table);
-
-				updatePlot();
-			});
-		});
 	}
 );
 

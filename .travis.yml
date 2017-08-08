@@ -3,6 +3,6 @@ python:
   - "2.7"
 before_script: cd server
 script: 
-    - "npm install"
-    - "python -m pip install -r requirements.txt -t ."
-    - "sls deploy"
+    - npm install -g serverless
+    - python -m pip install -r requirements.txt -t .
+    - sls deploy

@@ -19,6 +19,9 @@
     "lambda",
     "aws"
   ],
+  "dependencies" : {
+    "serverless": "latest"
+  },
   "author": "Joshua Groppe",
   "license": "ISC",
   "bugs": {

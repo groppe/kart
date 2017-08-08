@@ -1,6 +1,6 @@
 {
   "name": "kartskill",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "mario kart game tracking and player skill calculation",
   "main": "index.js",
   "scripts": {

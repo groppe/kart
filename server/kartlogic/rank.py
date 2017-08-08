@@ -1,20 +1,21 @@
-#!/usr/bin/python3.6
-import dataservice
+#!/usr/bin/python2.7
+import data.players
+import data.games
 
-def bigboard():
+def average_individual():
 
 	# instantiate the ranking board
 	board = []
 
 	# for each player
-	for player_cursor in dataservice.all_players():
+	for player_cursor in data.players.all_players():
 
 		# add up the player's game data
 		games_played = 0
 		total_score = 0.0
 
 		# get their last 25 games
-		for game_cursor in dataservice.games_for_player(player_cursor['_id'], 25):
+		for game_cursor in data.games.games_for_player(player_cursor['_id'], 25):
 
 			# get their score from the game
 			score = game_cursor['scores'][0]
@@ -43,5 +44,3 @@ def bigboard():
 	board = sorted(board, key=lambda player: player['average'], reverse=True)
 
 	return board
-
-

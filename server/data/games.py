@@ -1,10 +1,5 @@
-#!/usr/bin/python3.6
-import logging
-from mongodb import player_collection
+#!/usr/bin/python2.7
 from mongodb import game_collection
-
-def all_players():
-	return player_collection.find()
 
 def games_for_player(player_id, number_of_games=25):
 	return game_collection.aggregate([

@@ -1,0 +1,19 @@
+service: kartskill
+
+provider:
+  name: aws
+  runtime: python2.7
+  stage: dev
+  environment:
+    MARIO_MONGO_URI: ${env:MARIO_MONGO_URI}
+    MARIO_MONGO_DB: ${env:MARIO_MONGO_DB}
+    PLOTLY_USERNAME: ${env:PLOTLY_USERNAME}
+    PLOTLY_API_KEY: ${env:PLOTLY_API_KEY}
+
+functions:
+  bigboard:
+    handler: slack.rank_individuals_by_average_score
+    events:
+      - http:
+          path: slack/ranking
+          method: get

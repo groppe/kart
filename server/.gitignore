@@ -1,0 +1,4 @@
+*.pyc
+.serverless
+node_modules
+deploy

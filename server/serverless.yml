@@ -5,10 +5,10 @@ provider:
   runtime: python2.7
   stage: dev
   environment:
-    MARIO_MONGO_URI: ${file(./environment.yml):MARIO_MONGO_URI}
-    MARIO_MONGO_DB: ${file(./environment.yml):MARIO_MONGO_DB}
-    PLOTLY_USERNAME: ${file(./environment.yml):PLOTLY_USERNAME}
-    PLOTLY_API_KEY: ${file(./environment.yml):PLOTLY_API_KEY}
+    MARIO_MONGO_URI: ${env:MARIO_MONGO_URI}
+    MARIO_MONGO_DB: ${env:MARIO_MONGO_DB}
+    PLOTLY_USERNAME: ${env:PLOTLY_USERNAME}
+    PLOTLY_API_KEY: ${env:PLOTLY_API_KEY}
 
 functions:
   bigboard:

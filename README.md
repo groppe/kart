@@ -11,9 +11,24 @@ These instructions will provide assistance in getting the mario application up a
 
 ### Prerequisites
 
-What is need to run the software locally.
+The following are needed to run the application locally:
 ```
-Python 2.7
-Node.js 6.11.*
-URI and Read/Write credentials to an existing Mongo database running 3.4.*, on or accessible from the local machine.
+ - Python 2.7
+ - Node.js 6.11.*
+ - URI with Read/Write credentials to an existing Mongo database running 3.4.*, which is on or accessible from the local machine.
+```
+
+### Installing
+
+1. Clone or download the entire project.
+2. Open a bash terminal with administrator privileges and navigate to the root directory of the project.
+3. Install the Node dependencies, including the [Serverless](https://serverless.com/) framework:
+```
+npm install
+```
+
+4. Change working directories to the *server* folder and run the following to install the python dependencies:
+
+```
+python -m pip install -r requirements.txt -t .
 ```

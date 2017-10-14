@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/groppe/mario.svg?branch=development)](https://travis-ci.org/groppe/mario)
 # mario
 A web application that runs on AWS Lambda for keeping track of your local multiplayer game results. Includes a web interface, documented RESTful API's, and a Slack bot. The application stores player information, game scores, and calculates skill rankings.
 

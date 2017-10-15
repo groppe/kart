@@ -12,10 +12,14 @@ These instructions will provide assistance in getting the mario application up a
 
 ### Prerequisites
 
-The following are needed to run the application locally:
+The following dependencies are needed to run the application:
  - Python 2.7
  - Node.js 6.11.*
  - MongoDB 3.4.* database (on or accessible from the local machine)
+
+The following dependencies are needed to deploy and use the application:
+ - AWS account with administrator access
+ - Slack account with authorization to add an integration
 
 ### Installing
 
@@ -49,6 +53,7 @@ python -m pip install -r requirements.txt -t .
 ```
 sls deploy [--stage dev/test/prod/etc.]
 ```
+3. Add created endpoints to Slack as slash commands, as described [here](https://medium.com/@cu_tech/create-a-slack-slash-command-with-aws-lambda-83fb172f9a74) (start at the "Phew..." section).
 ## Built With
 
 * [Serverless](https://serverless.com/) - The web deployment framework used

@@ -13,31 +13,42 @@ These instructions will provide assistance in getting the mario application up a
 ### Prerequisites
 
 The following are needed to run the application locally:
-```
  - Python 2.7
  - Node.js 6.11.*
- - URI with Read/Write credentials to an existing Mongo database running 3.4.*, which is on or accessible from the local machine.
-```
+ - MongoDB 3.4.* database (on or accessible from the local machine)
 
 ### Installing
 
 1. Clone or download the entire project.
+2. Create the following environment variables (with the appropriate values):
+```
+MARIO_MONGO_URI: URI to the database that includes credentials with Read/Write permission
+MARIO_MONGO_DB: name of the Mongo database to use 
+AWS_ACCESS_KEY_ID: Access key with AWS administrator access
+AWS_SECRET_ACCESS_KEY: Associated secret key
+```
 2. Open a bash terminal with administrator privileges and navigate to the root directory of the project.
 3. Install the Node dependencies:
 ```
 npm install
 ```
 
-4. Change working directories to the *server* folder and run the following to install the python dependencies:
+4. Change working directory to the *server* folder and run the following to install the python dependencies:
 
 ```
-python -m pip install -r requirements.txt -t .
+python -m pip install -r requirements.txt
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
-
+1. Download Python dependencies locally:
+```
+python -m pip install -r requirements.txt -t .
+```
+2. Package and deploy to AWS using Serverless (optionally specify deployment stage):
+```
+sls deploy [--stage dev/test/prod/etc.]
+```
 ## Built With
 
 * [Serverless](https://serverless.com/) - The web deployment framework used

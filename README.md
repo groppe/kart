@@ -23,7 +23,7 @@ The following are needed to run the application locally:
 
 1. Clone or download the entire project.
 2. Open a bash terminal with administrator privileges and navigate to the root directory of the project.
-3. Install the Node dependencies, including the [Serverless](https://serverless.com/) framework:
+3. Install the Node dependencies:
 ```
 npm install
 ```
@@ -33,3 +33,36 @@ npm install
 ```
 python -m pip install -r requirements.txt -t .
 ```
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Serverless](https://serverless.com/) - The web deployment framework used
+* [NPM](https://www.npmjs.com/) - JavaScript Dependency Management
+* [pip](https://pip.pypa.io/en/stable/) - Python Dependency Management
+* [numpy](http://www.numpy.org/) - Mathemetical calculations
+* [MongoDB](https://www.mongodb.com/) - Database
+
+## Contributing
+
+* PR instructions, code review required
+* Unit test and integration test standards
+
+## Previous Versions
+
+There is currently only a single tagged legacy version, which is a limited iteration of the application that runs on Node.js and only integrates with Slack.
+
+## Authors
+
+* **Joshua Groppe** - *Creator, architect, and lead developer*
+
+## License
+
+This project is licensed under the ISC license.
+
+## Acknowledgments
+
+Coming soon

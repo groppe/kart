@@ -5,4 +5,5 @@ before_script: cd server
 script: 
     - npm install -g serverless
     - python -m pip install -r requirements.txt -t .
+    - python -m unittest discover -p "*_test.py"
     - sls deploy

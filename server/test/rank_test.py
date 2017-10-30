@@ -67,7 +67,7 @@ class RankTests(unittest.TestCase):
         result = rank.calculate_average(games_played, score)
 
         # Assert
-        self.assertEqual(result, 15.00)
+        self.assertEqual(result, 14.00)
 
     def testCalculateAverage_WhenNoGamesPlayed_ReturnsZero(self):
 

@@ -10,5 +10,3 @@ before_script:
   - python -m coverage run -m unittest discover -p "*_test.py"
 script:
   - sls deploy
-after_success:
-  - coveralls

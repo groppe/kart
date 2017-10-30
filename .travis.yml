@@ -8,6 +8,7 @@ install:
 before_script:
   - python -m unittest discover -p "*_test.py"
   - python -m coverage run -m unittest discover -p "*_test.py"
-  - coveralls
 script:
   - sls deploy
+after_success:
+  - coveralls

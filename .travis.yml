@@ -7,4 +7,5 @@ install:
   - python -m pip install -r requirements.txt -t .
 before_script: cd server
 script: python -m unittest discover -p "*_test.py"
-deploy: sls deploy
+deploy:
+  - sls deploy

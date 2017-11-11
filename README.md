@@ -64,8 +64,8 @@ sls deploy [--stage dev/test/prod/etc.]
 
 ## Contributing
 
-* PR instructions, code review required
-* Unit test and integration test standards
+* Branch off and submit PR's to the `development` branch.
+* Work must be fully unit tested.
 
 ## Previous Versions
 

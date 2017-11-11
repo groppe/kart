@@ -11,8 +11,8 @@ def calculate_average(games_played, total_score):
 
 
 def average_individual():
-    # instantiate the ranking board
-    board = instantiate_empty_array()
+    # instantiate the ranking
+    rankings = instantiate_empty_array()
 
     # for each player
     for player_cursor in player_data.all_players():
@@ -36,12 +36,12 @@ def average_individual():
         player = create_player_entry(player_cursor, average)
 
         # add them to the board
-        board.append(player)
+        rankings.append(player)
 
     # sort by average
-    board = sorted(board, key=lambda player: player['average'], reverse=True)
+    rankings = sorted(rankings, key=lambda player: player['average'], reverse=True)
 
-    return board
+    return rankings
 
 
 def instantiate_empty_array():

@@ -4,8 +4,8 @@ import json
 import kartlogic.rank
 import prettytable
 
-def rank_individuals_by_average_score(event, context):
 
+def rank_individuals_by_average_score(event, context):
     # retrieve the ranking board data
     boardData = kartlogic.rank.average_individual()
 

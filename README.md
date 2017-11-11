@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/groppe/mario.svg?branch=development)](https://travis-ci.org/groppe/mario)
+[![Build Status](https://travis-ci.org/groppe/mario.svg?branch=development)](https://travis-ci.org/groppe/mario) [![Coverage Status](https://coveralls.io/repos/github/groppe/mario/badge.svg?branch=development)](https://coveralls.io/github/groppe/mario?branch=development)
 # mario
 A web application that runs on AWS Lambda for keeping track of your local multiplayer game results. Includes a web interface, documented RESTful API's, and a Slack bot. The application stores player information, game scores, and calculates skill rankings.
 

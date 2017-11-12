@@ -1,12 +1,12 @@
 #!/usr/bin/python2.7
 import os
-import urllib.parse
+import urlparse
 
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 
 
 def parse_input(data):
-    parsed = urllib.parse.parse_qsl(data, keep_blank_values=True)
+    parsed = urlparse.parse_qsl(data, keep_blank_values=True)
     result = {}
     for item in parsed:
         result[item[0]] = item[1]

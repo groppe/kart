@@ -34,7 +34,7 @@ def lambda_response_server_error(message):
 
 def lambda_response_unauthorized(message):
     return {
-        'statusCode': 404,
+        'statusCode': 401,
         'headers': {
             'Content-Type': 'text/plain',
         },

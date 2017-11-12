@@ -8,7 +8,7 @@ import json
 
 
 def post(event, context):
-    logging.debug(json.dumps(event))
+    logging.warning(json.dumps(event))
     return util.web.lambda_response_success("Successful")
 
 

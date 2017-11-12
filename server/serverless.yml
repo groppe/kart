@@ -11,6 +11,12 @@ provider:
     PLOTLY_API_KEY: ${env:PLOTLY_API_KEY}
 
 functions:
+  slack:
+    handler: slack.post
+    events:
+      - http:
+          path: slack
+          method: post
   bigboard:
     handler: slack.rank_individuals_by_average_score
     events:

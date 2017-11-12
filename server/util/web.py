@@ -2,13 +2,23 @@
 import json
 
 
-def lambda_response_success(json_body):
+def lambda_response_success(message):
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'text/plain',
+        },
+        'body': message
+    }
+
+
+def lambda_response_success_json(body):
     return {
         'statusCode': 200,
         'headers': {
             'Content-Type': 'application/json',
         },
-        'body': json.dumps(json_body)
+        'body': json.dumps(body)
     }
 
 

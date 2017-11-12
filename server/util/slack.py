@@ -6,3 +6,10 @@ def in_channel_response(text):
         'response_type': 'in_channel',
         'text': text
     }
+
+
+def ephemeral_response(text):
+    return {
+        'response_type': 'ephemeral',
+        'text': text
+    }

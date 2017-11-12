@@ -8,7 +8,7 @@ import json
 
 
 def post(event, context):
-    logging.warning(json.dumps(event))
+    logging.warning(json.dumps(util.slack.parse_input(event['body'])))
     return util.web.lambda_response_success("Successful")
 
 

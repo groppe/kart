@@ -1,4 +1,5 @@
 #!/usr/bin/python2.7
+import datetime
 import json
 import kartlogic.rank
 import logging
@@ -28,7 +29,7 @@ def handler(event, context):
     if pattern_ranking.match(command_text):
         return handle_rankings()
     elif pattern_played.match(command_text):
-        return handle_played()
+        return handle_played(command_text)
     elif pattern_characters.match(command_text):
         return handle_characters()
     elif pattern_add_character.match(command_text):
@@ -71,8 +72,31 @@ def handle_rankings():
     return webutil.respond_success_json(slack_response)
 
 
-def handle_played():
-    return webutil.respond_success('Played')
+def handle_played(command_text):
+    # condense whitespace
+    command_text = ' '.join(command_text.split())
+
+    components = command_text.split(',')
+    race_count = int(components[0].split(" ")[1], 0)
+
+    scores = []
+
+    for i in range(1, len(components)):
+        player_score = {
+            'player_id': components[i].split(' ')[1].split('[@>]')[1],
+            'score': components[i].split(' ')[2],
+            'average': round(float(components[i].split(' ')[2]) / race_count, 2)
+        }
+
+        scores.append(player_score)
+
+    game = {
+        'games': race_count,
+        'datetime': datetime.datetime.now(),
+        'scores': scores
+    }
+
+    logging.critical(json.dumps(game))
 
 
 def handle_characters():

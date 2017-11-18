@@ -1,5 +1,7 @@
 #!/usr/bin/python2.7
+import json
 import kartlogic.rank
+import logging
 import prettytable
 import util.web as webutil
 import util.slack as slackutil
@@ -11,7 +13,19 @@ def handler(event, context):
     if slackutil.validate_slack_token(input_data) is False:
         return webutil.respond_unauthorized("Invalid Slack token")
 
+    logging.critical(json.dumps(input_data))
+
     return webutil.respond_success("Successful")
+
+
+def parse_parameters(text):
+    if text is None or text is '':
+        return {}
+    return True
+
+
+def usage_help():
+    return ''
 
 
 def rank_individuals_by_average_score(event, context):

@@ -20,7 +20,7 @@ def average_individual():
     return sorted(rankings, key=lambda player: player['average'], reverse=True)
 
 #
-# private methods
+# private helper methods
 #
 
 

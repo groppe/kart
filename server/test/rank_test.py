@@ -237,6 +237,60 @@ class RankTests(unittest.TestCase):
         }
         self.assertDictEqual(result, player)
 
+    def testAverageIndividual_ReturnsArray(self):
+
+        # Act
+        result = rank.average_individual()
+
+        # Assert
+        self.assertIsInstance(result, list)
+
+    def testAverageIndividual_ReturnsArrayOfDictionariesWithId(self):
+
+        # Act
+        result = rank.average_individual()
+        first_entry = result[0]
+
+        # Assert
+        self.assertTrue('id' in first_entry)
+
+    def testAverageIndividual_ReturnsArrayOfDictionariesWithName(self):
+
+        # Act
+        result = rank.average_individual()
+        first_entry = result[0]
+
+        # Assert
+        self.assertTrue('name' in first_entry)
+
+    def testAverageIndividual_ReturnsArrayOfDictionariesWithCharacter(self):
+
+        # Act
+        result = rank.average_individual()
+        first_entry = result[0]
+
+        # Assert
+        self.assertTrue('character' in first_entry)
+
+    def testAverageIndividual_ReturnsArrayOfDictionariesWithAverage(self):
+
+        # Act
+        result = rank.average_individual()
+        first_entry = result[0]
+
+        # Assert
+        self.assertTrue('average' in first_entry)
+
+    def testAverageIndividual_ReturnsArrayOfDictionariesSortedByAverage(self):
+
+        # Act
+        result = rank.average_individual()
+        first_entry = result[0]
+        second_entry = result[1]
+
+        # Assert
+        self.assertGreaterEqual(first_entry.get('average'), second_entry.get('average'))
+
 
 def main():
     unittest.main()

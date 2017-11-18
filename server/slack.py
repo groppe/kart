@@ -7,7 +7,7 @@ import util.web
 import util.slack
 
 
-def post(event, context):
+def handler(event, context):
     logging.warning(event['body'])
     logging.warning(json.dumps(util.slack.parse_input(event['body'])))
     return util.web.respond_success("Successful")

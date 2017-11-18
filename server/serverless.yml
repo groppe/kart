@@ -12,7 +12,7 @@ provider:
 
 functions:
   slack:
-    handler: slack.post
+    handler: slack.handler
     events:
       - http:
           path: slack

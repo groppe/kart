@@ -11,14 +11,13 @@ MONGO_COLLECTION_GAME = 'GAME'
 MONGO_COLLECTION_PLAYER = 'PLAYER'
 MONGO_COLLECTION_CHARACTER = 'CHARACTER'
 
-# verify database connection environment variables
-if MONGO_URI is None:
-	logging.critical("MARIO_MONGO_URI environment variable must be set")
-	sys.exit(1)
+if MONGO_URI is None:  # pragma: no cover
+    logging.critical("MARIO_MONGO_URI environment variable must be set")
+    sys.exit(1)
 
-if MONGO_DB is None:
-	logging.critical("MARIO_MONGO_URI environment variable must be set")
-	sys.exit(1)
+if MONGO_DB is None:  # pragma: no cover
+    logging.critical("MARIO_MONGO_URI environment variable must be set")
+    sys.exit(1)
 
 # connect to the database
 client = MongoClient(MONGO_URI)

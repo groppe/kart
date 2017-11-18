@@ -2,7 +2,7 @@
 import json
 
 
-def lambda_response_success(message):
+def respond_success(message):
     return {
         'statusCode': 200,
         'headers': {
@@ -12,7 +12,7 @@ def lambda_response_success(message):
     }
 
 
-def lambda_response_success_json(body):
+def respond_success_json(body):
     return {
         'statusCode': 200,
         'headers': {
@@ -22,7 +22,7 @@ def lambda_response_success_json(body):
     }
 
 
-def lambda_response_server_error(message):
+def respond_server_error(message):
     return {
         'statusCode': 500,
         'headers': {
@@ -32,7 +32,7 @@ def lambda_response_server_error(message):
     }
 
 
-def lambda_response_unauthorized(message):
+def respond_unauthorized(message):
     return {
         'statusCode': 401,
         'headers': {

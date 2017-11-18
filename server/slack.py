@@ -45,7 +45,13 @@ def handle_help():
 
 
 def handle_rankings():
-    return webutil.respond_success('Rankings')
+    rankings = kartlogic.rank.average_individual()
+    table = prettytable.PrettyTable(['Rank', 'Player', 'Character', 'Average'])
+    for index, player in enumerate(rankings):
+        table.add_row([(index + 1), player['name'], player['character'], player['average']])
+    table_string = '```' + table.get_string(border=True) + '```'
+    slack_response = slackutil.in_channel_response(table_string)
+    return webutil.respond_success_json(slack_response)
 
 
 def handle_played():
@@ -66,23 +72,3 @@ def handle_my_name():
 
 def handle_my_character():
     return webutil.respond_success('My Character')
-
-
-def rank_individuals_by_average_score(event, context):
-    # retrieve the ranking board data
-    board_data = kartlogic.rank.average_individual()
-
-    # initialize the text table
-    table = prettytable.PrettyTable(['Rank', 'Player', 'Character', 'Average'])
-
-    # add player data to table
-    for index, player in enumerate(board_data):
-        table.add_row([(index + 1), player['name'], player['character'], player['average']])
-
-    # convert the entire table to a string
-    table_string = '```' + table.get_string(border=True) + '```'
-
-    # the response body that Slack expects
-    slack_response = slackutil.in_channel_response(table_string)
-
-    return webutil.respond_success_json(slack_response)

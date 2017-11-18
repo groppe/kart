@@ -18,9 +18,3 @@ functions:
       - http:
           path: slack
           method: post
-  bigboard:
-    handler: slack.rank_individuals_by_average_score
-    events:
-      - http:
-          path: slack/ranking
-          method: get

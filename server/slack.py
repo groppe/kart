@@ -1,10 +1,10 @@
 #!/usr/bin/python2.7
-import datetime
 import json
 import kartlogic.rank
 import logging
 import re
 import prettytable
+import time
 import util.web as webutil
 import util.slack as slackutil
 
@@ -73,7 +73,6 @@ def handle_rankings():
 
 
 def handle_played(command_text):
-    # condense whitespace
     command_text = ' '.join(command_text.split())
 
     components = command_text.split(',')
@@ -92,7 +91,7 @@ def handle_played(command_text):
 
     game = {
         'games': race_count,
-        'datetime': datetime.datetime.now(),
+        'datetime': int(time.time()),
         'scores': scores
     }
 

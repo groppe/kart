@@ -6,7 +6,7 @@ import util.slack as slackutil
 
 
 def handler(event, context):
-    input_data = slackutil.slack.parse_input(event['body'])
+    input_data = slackutil.parse_input(event['body'])
 
     if slackutil.validate_slack_token(input_data) is False:
         return webutil.respond_unauthorized("Invalid Slack token")

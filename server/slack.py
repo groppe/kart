@@ -10,7 +10,7 @@ import util.slack as slackutil
 # compile regular expressions for slash command parameter strings
 pattern_help = re.compile('^help$')
 pattern_ranking = re.compile('^ranking$')
-pattern_played = re.compile('^(played \\d+ games)((,\\s(<@\\w+>)\\s([0-9]+))+)$')
+pattern_played = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|\w+>)\s+([0-9]+))+)$')
 pattern_characters = re.compile('^characters$')
 pattern_add_character = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
 pattern_my_name = re.compile('^my name is \".*\"$')

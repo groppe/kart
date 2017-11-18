@@ -83,7 +83,7 @@ def handle_played(command_text):
 
     for i in range(1, len(components)):
         player_score = {
-            'player_id': components[i].split(' ')[1].split('[@>]')[1],
+            'player_id': re.sub('[<@]', '', components[1].split(' ')[1].split('|')[0]),
             'score': components[i].split(' ')[2],
             'average': round(float(components[i].split(' ')[2]) / race_count, 2)
         }

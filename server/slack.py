@@ -1,16 +1,17 @@
 #!/usr/bin/python2.7
-import json
 import kartlogic.rank
-import logging
 import prettytable
-import util.web
-import util.slack
+import util.web as webutil
+import util.slack as slackutil
 
 
 def handler(event, context):
-    logging.warning(event['body'])
-    logging.warning(json.dumps(util.slack.parse_input(event['body'])))
-    return util.web.respond_success("Successful")
+    input_data = slackutil.slack.parse_input(event['body'])
+
+    if slackutil.validate_slack_token(input_data) is False:
+        return webutil.respond_unauthorized("Invalid Slack token")
+
+    return webutil.respond_success("Successful")
 
 
 def rank_individuals_by_average_score(event, context):
@@ -28,6 +29,6 @@ def rank_individuals_by_average_score(event, context):
     table_string = '```' + table.get_string(border=True) + '```'
 
     # the response body that Slack expects
-    slack_response = util.slack.in_channel_response(table_string)
+    slack_response = slackutil.in_channel_response(table_string)
 
-    return util.web.respond_success_json(slack_response)
+    return webutil.respond_success_json(slack_response)

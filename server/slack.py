@@ -24,20 +24,18 @@ def handler(event, context):
         return webutil.respond_unauthorized("Invalid Slack token")
 
     command_text = input_data.get('text', 'help')
-    if pattern_help.match(command_text):
-        return handle_help()
-    elif pattern_ranking.match(command_text):
+    if pattern_ranking.match(command_text):
         return handle_rankings()
     elif pattern_played.match(command_text):
-        return handle_rankings()
+        return handle_played()
     elif pattern_characters.match(command_text):
-        return handle_rankings()
+        return handle_characters()
     elif pattern_add_character.match(command_text):
-        return handle_rankings()
+        return handle_add_character()
     elif pattern_my_name.match(command_text):
-        return handle_rankings()
+        return handle_my_name()
     elif pattern_my_character.match(command_text):
-        return handle_rankings()
+        return handle_my_character()
     else:
         return handle_help()
 

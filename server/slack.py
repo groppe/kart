@@ -1,15 +1,16 @@
 #!/usr/bin/python2.7
+import json
 import kartlogic.rank
+import logging
+import prettytable
 import util.web
 import util.slack
-import prettytable
-import logging
-import json
 
 
 def post(event, context):
+    logging.warning(event['body'])
     logging.warning(json.dumps(util.slack.parse_input(event['body'])))
-    return util.web.lambda_response_success("Successful")
+    return util.web.respond_success("Successful")
 
 
 def rank_individuals_by_average_score(event, context):
@@ -29,4 +30,4 @@ def rank_individuals_by_average_score(event, context):
     # the response body that Slack expects
     slack_response = util.slack.in_channel_response(table_string)
 
-    return util.web.lambda_response_success_json(slack_response)
+    return util.web.respond_success_json(slack_response)

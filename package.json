@@ -19,7 +19,8 @@
     "lambda",
     "aws"
   ],
-  "dependencies" : {
+  "dependencies": {
+  	"@angular/cli": "1.5.4",
     "serverless": "latest"
   },
   "author": "Joshua Groppe",
@@ -27,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/groppe/mario/issues"
   },
-  "homepage": "https://github.com/groppe/mario#readme"
+  "homepage": "https://github.com/groppe/mario#readme",
+  "devDependencies": {
+    "@angular/cli": "^1.5.4"
+  }
 }

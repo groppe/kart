@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 import unittest
-import kartlogic.rank as rank
+import lib.rank as rank
 
 
 class RankTests(unittest.TestCase):

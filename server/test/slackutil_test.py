@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 import os
 import unittest
-import util.slack as slack
+from lib.slack import util as slackutil
 
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 
@@ -14,7 +14,7 @@ class RankTests(unittest.TestCase):
         data = ''
 
         # Act
-        result = slack.parse_input(data)
+        result = slackutil.parse_input(data)
 
         # Assert
         self.assertDictEqual(result, {})
@@ -28,7 +28,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = slack.parse_input(data)
+        result = slackutil.parse_input(data)
 
         # Assert
         self.assertDictEqual(result, expected_result)
@@ -43,7 +43,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = slack.parse_input(data)
+        result = slackutil.parse_input(data)
 
         # Assert
         self.assertDictEqual(result, expected_result)
@@ -56,7 +56,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = slack.validate_slack_token(request_data)
+        result = slackutil.validate_slack_token(request_data)
 
         # Assert
         self.assertTrue(result)
@@ -70,7 +70,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = slack.validate_slack_token(request_data)
+        result = slackutil.validate_slack_token(request_data)
 
         # Assert
         self.assertFalse(result)
@@ -81,7 +81,7 @@ class RankTests(unittest.TestCase):
         request_data = {}
 
         # Act
-        result = slack.validate_slack_token(request_data)
+        result = slackutil.validate_slack_token(request_data)
 
         # Assert
         self.assertFalse(result)
@@ -96,7 +96,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = slack.in_channel_response(text)
+        result = slackutil.in_channel_response(text)
 
         # Assert
         self.assertDictEqual(result, in_channel_response)
@@ -111,7 +111,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = slack.ephemeral_response(text)
+        result = slackutil.ephemeral_response(text)
 
         # Assert
         self.assertDictEqual(result, ephemeral_response)

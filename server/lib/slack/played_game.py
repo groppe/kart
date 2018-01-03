@@ -1,4 +1,6 @@
 #!/usr/bin/python2.7
+import json
+import logging
 import re
 import time
 import lib.slack.util as slackutil
@@ -28,6 +30,8 @@ def handle(command_text):
         'datetime': int(time.time()),
         'scores': scores
     }
+
+    logging.critical(json.dumps(game))
 
     game_data.add_game(game)
 

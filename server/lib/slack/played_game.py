@@ -27,18 +27,13 @@ def handle(command_text):
 
     game = {
         'games': race_count,
-        'datetime': int(time.time()),
+        'datetime': int(time.time()) * 1000,
         'scores': scores
     }
 
-    logging.critical(json.dumps(game))
-
     game_data.add_game(game)
 
-    logging.critical("it should have added")
-
-    slack_response = slackutil.in_channel_response('*Result*\n')
-    return webutil.respond_success(slack_response)
+    return webutil.respond_success('*Result*')
 
 
 def trim_extra_whitespace(text):

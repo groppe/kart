@@ -7,7 +7,7 @@ def all_players():
 
 
 def get_player(player_id):
-    return player_collection.find({
+    return player_collection.find_one({
         '_id': player_id
     })
 

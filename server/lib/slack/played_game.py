@@ -35,6 +35,8 @@ def handle(command_text):
 
     game_data.add_game(game)
 
+    logging.critical("it should have added")
+
     slack_response = slackutil.in_channel_response('*Result*\n')
     return webutil.respond_success(slack_response)
 

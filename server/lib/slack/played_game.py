@@ -1,11 +1,9 @@
 #!/usr/bin/python2.7
-import json
-import logging
 import re
 import time
-import lib.slack.util as slackutil
 from lib import webutil
 from lib.data import games as game_data
+from lib.data import players as player_data
 
 
 def handle(command_text):
@@ -32,6 +30,12 @@ def handle(command_text):
     }
 
     game_data.add_game(game)
+
+    response_text = '*Races:* ' + str(game.get('games')) + '\n*Average Scores*'
+    for score in scores:
+        player_cursor = player_data.get_player(score['player_id'])
+        response_text += '\n' + player_cursor.get('name', '<Unknown>')
+        response_text += ': ' + score['average']
 
     return webutil.respond_success('*Result*')
 

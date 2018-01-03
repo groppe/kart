@@ -39,7 +39,7 @@ def handle(command_text):
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
         response_text += ': ' + str(score['average'])
 
-    return webutil.respond_success('*Result*')
+    return webutil.respond_success(response_text)
 
 
 def trim_extra_whitespace(text):

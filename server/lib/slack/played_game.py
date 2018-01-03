@@ -31,11 +31,13 @@ def handle(command_text):
 
     game_data.add_game(game)
 
+    scores = sorted(scores, key=lambda k: k['average'])
+
     response_text = '*Races:* ' + str(game.get('games')) + '\n*Average Scores*'
     for score in scores:
         player_cursor = player_data.get_player(score['player_id'])
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
-        response_text += ': ' + score['average']
+        response_text += ': ' + str(score['average'])
 
     return webutil.respond_success('*Result*')
 

@@ -1,4 +1,5 @@
 #!/usr/bin/python2.7
+import util as slackutil
 import re
 import time
 from lib import webutil
@@ -16,7 +17,7 @@ def handle(command_text):
 
     for i in range(1, len(result_components)):
         player_score = {
-            'player_id': re.sub('[<@]', '', result_components[1].split(' ')[1].split('|')[0]),
+            'player_id': re.sub('[<@]', '', result_components[i].split(' ')[1].split('|')[0]),
             'score': int(result_components[i].split(' ')[2]),
             'average': round(float(result_components[i].split(' ')[2]) / race_count, 2)
         }
@@ -33,13 +34,14 @@ def handle(command_text):
 
     scores = sorted(scores, key=lambda k: k['average'])
 
-    response_text = '*Races:* ' + str(game.get('games')) + '\n*Average Scores*'
+    response_text = 'A game was played!\n*Races:* ' + str(game.get('games')) + '\n*Average Scores*'
     for score in scores:
         player_cursor = player_data.get_player(score['player_id'])
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
         response_text += ': ' + str(score['average'])
 
-    return webutil.respond_success(response_text)
+    slack_body = slackutil.in_channel_response(response_text)
+    return webutil.respond_success_json(slack_body)
 
 
 def trim_extra_whitespace(text):

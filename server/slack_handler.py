@@ -25,9 +25,8 @@ pattern_set_character = re.compile('^my character is \".*\"$')
 def handle(event, context):
     input_data = slackutil.parse_input(event['body'])
 
-    logger = logging.getLogger('SLACK_HANDLER')
-    logger.log(json.dumps(input_data))
-    
+    logging.info(json.dumps(input_data))
+
     if slackutil.validate_slack_token(input_data) is False:
         return webutil.respond_unauthorized("Invalid Slack token")
 

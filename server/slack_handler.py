@@ -1,25 +1,25 @@
 #!/usr/bin/python2.7
 import re
 import json
+import logging
 import lib.slack.add_character as add_character
 import lib.slack.characters as characters
-import lib.slack.help as help
+import lib.slack.help as helper
 import lib.slack.played_game as played_game
 import lib.slack.rankings as rankings
 import lib.slack.set_character as set_character
 import lib.slack.set_name as set_name
 import lib.slack.util as slackutil
 import lib.webutil as webutil
-import logging
 
 # compile regular expressions for slash command parameter strings
-pattern_help = re.compile('^help$')
-pattern_ranking = re.compile('^rankings$')
-pattern_played = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|\w+>)\s+([0-9]+))+)$')
-pattern_characters = re.compile('^characters$')
-pattern_add_character = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
-pattern_set_name = re.compile('^my name is \".*\"$')
-pattern_set_character = re.compile('^my character is \".*\"$')
+PATTERN_HELP = re.compile('^help$')
+PATTERN_RANKING = re.compile('^rankings$')
+PATTERN_PLAYED = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|\w+>)\s+([0-9]+))+)$')
+PATTERN_CHARACTERS = re.compile('^characters$')
+PATTERN_ADD_CHARACTER = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
+PATTERN_SET_NAME = re.compile('^my name is \".*\"$')
+PATTERN_SET_CHARACTER = re.compile('^my character is \".*\"$')
 
 
 def handle(event, context):
@@ -32,17 +32,17 @@ def handle(event, context):
 
     command_text = input_data.get('text', '')
 
-    if pattern_ranking.match(command_text):
+    if PATTERN_RANKING.match(command_text):
         return rankings.handle()
-    elif pattern_played.match(command_text):
+    elif PATTERN_PLAYED.match(command_text):
         return played_game.handle(command_text)
-    elif pattern_characters.match(command_text):
+    elif PATTERN_CHARACTERS.match(command_text):
         return characters.handle()
-    elif pattern_add_character.match(command_text):
+    elif PATTERN_ADD_CHARACTER.match(command_text):
         return add_character.handle(command_text)
-    elif pattern_set_name.match(command_text):
+    elif PATTERN_SET_NAME.match(command_text):
         return set_name.handle(command_text)
-    elif pattern_set_character.match(command_text):
+    elif PATTERN_SET_CHARACTER.match(command_text):
         return set_character.handle(command_text)
     else:
-        return help.handle()
+        return helper.handle()

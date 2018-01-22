@@ -34,7 +34,7 @@ def handle(command_text):
 
     scores = sorted(scores, key=lambda k: k['average'], reverse=True)
 
-    response_text = 'A game was played!\n*Races:* ' + str(game.get('games')) + '\n*Average Scores*'
+    response_text = 'A game of *' + str(game.get('games')) + '* races was played! Average scores:'
     for score in scores:
         player_cursor = player_data.get_player(score['player_id'])
         response_text += '\n' + player_cursor.get('name', '<Unknown>')

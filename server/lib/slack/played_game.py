@@ -32,7 +32,7 @@ def handle(command_text):
 
     game_data.add_game(game)
 
-    scores = sorted(scores, key=lambda k: k['average'])
+    scores = sorted(scores, key=lambda k: k['average'], reverse=True)
 
     response_text = 'A game was played!\n*Races:* ' + str(game.get('games')) + '\n*Average Scores*'
     for score in scores:

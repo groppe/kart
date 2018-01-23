@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from mongodb import character_collection
+from lib.data.mongodb import character_collection
 
 
 def all_characters():

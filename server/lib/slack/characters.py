@@ -10,4 +10,4 @@ def handle():
         character_string = '-' + character['name'] + '\n'
         characters += character_string
     slack_body = slackutil.ephemeral_response(characters)
-    return webutil.respond_success(slack_body)
+    return webutil.respond_success_json(slack_body)

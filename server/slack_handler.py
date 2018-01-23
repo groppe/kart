@@ -12,6 +12,9 @@ import lib.slack.set_name as set_name
 import lib.slack.util as slackutil
 import lib.webutil as webutil
 
+# set logging level to info for this file
+logging.basicConfig(level=logging.INFO)
+
 # compile regular expressions for slash command parameter strings
 PATTERN_HELP = re.compile('^help$')
 PATTERN_RANKING = re.compile('^rankings$')

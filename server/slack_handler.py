@@ -12,9 +12,6 @@ import lib.slack.set_name as set_name
 import lib.slack.util as slackutil
 import lib.webutil as webutil
 
-# set logging level to info for this file
-logging.basicConfig(level=logging.INFO)
-
 # compile regular expressions for slash command parameter strings
 PATTERN_HELP = re.compile('^help$')
 PATTERN_RANKING = re.compile('^rankings$')
@@ -28,7 +25,7 @@ PATTERN_SET_CHARACTER = re.compile('^my character is \".*\"$')
 def handle(event, context):
     input_data = slackutil.parse_input(event['body'])
 
-    logging.info(json.dumps(input_data))
+    logging.critical(json.dumps(input_data))
 
     if slackutil.validate_slack_token(input_data) is False:
         return webutil.respond_unauthorized("Invalid Slack token")

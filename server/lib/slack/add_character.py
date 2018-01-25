@@ -6,15 +6,17 @@ from lib.data import characters as character_data
 
 
 def handle(command_text):
-    character_components = re.split(r'[\"\"]', command_text)
+    command_text_components = re.split(r'[\"\"]', command_text)
+    character_name = command_text_components[1]
+    character_icon = re.sub(r'[<>\s]', '', command_text_components[2])
     character = {
-        'name': character_components[1],
-        'image': character_components[2].lstrip()
+        'name': character_name,
+        'image': character_icon
     }
     character_data.add_character(character)
     slack_body = slackutil.in_channel_response_as_user(
         'I\'m alive!',
-        character_components[1],
-        character_components[2].lstrip()
+        character_name,
+        character_icon
     )
     return webutil.respond_success_json(slack_body)

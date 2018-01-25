@@ -3,6 +3,7 @@ import re
 import json
 import logging
 import lib.slack.add_character as add_character
+import lib.slack.add_player as add_player
 import lib.slack.characters as characters
 import lib.slack.help as helper
 import lib.slack.played_game as played_game
@@ -18,6 +19,7 @@ PATTERN_RANKING = re.compile('^rankings$')
 PATTERN_PLAYED = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|\w+>)\s+([0-9]+))+)$')
 PATTERN_CHARACTERS = re.compile('^characters$')
 PATTERN_ADD_CHARACTER = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
+PATTERN_ADD_PLAYER = re.compile('^add player <@\w+\|\w+>$')
 PATTERN_SET_NAME = re.compile('^my name is \".*\"$')
 PATTERN_SET_CHARACTER = re.compile('^my character is \".*\"$')
 
@@ -32,6 +34,7 @@ def handle(event, context):
         return webutil.respond_unauthorized("Invalid Slack token")
 
     command_text = input_data.get('text', '')
+    username = input_data.get('user_id', '')
 
     if PATTERN_RANKING.match(command_text):
         return rankings.handle()
@@ -41,9 +44,11 @@ def handle(event, context):
         return characters.handle()
     elif PATTERN_ADD_CHARACTER.match(command_text):
         return add_character.handle(command_text)
+    elif PATTERN_ADD_PLAYER.match(command_text):
+        return add_player.handle(command_text)
     elif PATTERN_SET_NAME.match(command_text):
-        return set_name.handle(command_text)
+        return set_name.handle(username, command_text)
     elif PATTERN_SET_CHARACTER.match(command_text):
-        return set_character.handle(command_text)
+        return set_character.handle(username, command_text)
     else:
         return helper.handle()

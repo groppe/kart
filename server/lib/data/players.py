@@ -12,9 +12,35 @@ def get_player(player_id):
     })
 
 
-def upsert_player_name(player_id, name):
-	return player_collection.update()
+def update_player_character(player_id, character_name):
+    player_collection.update_one(
+        {
+            '_id': player_id
+        },
+        {
+            '$set': {
+                'character': character_name
+            }
+        },
+        upsert=True
+    )
 
 
-def upsert_player_character(player_id, character):
-	return player_collection.update()
+def update_player_name(player_id, new_name):
+    player_collection.update_one(
+        {
+            '_id': player_id
+        },
+        {
+            '$set': {
+                'name': new_name
+            }
+        },
+        upsert=True
+    )
+
+
+def add_player(userid):
+    player_collection.insert_one({
+        '_id': userid
+    })

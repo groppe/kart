@@ -7,7 +7,7 @@ from lib.data import players as player_data
 
 def handle(userid, command_text):
     player = player_data.get_player(userid)
-    if player.count() < 1:
+    if player is None:
         return webutil.respond_success('You do not have a player record.')
 
     command_text_components = re.split(r'[\"\"]', command_text)

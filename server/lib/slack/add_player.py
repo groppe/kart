@@ -8,7 +8,7 @@ def handle(command_text):
     new_player_id = re.sub('[<@]', '', player_components[1].split('|')[0])
 
     player = player_data.get_player(new_player_id)
-    if player is None:
+    if player is not None:
         return webutil.respond_success('A player record for you already exists.')
 
     player_data.add_player(new_player_id)

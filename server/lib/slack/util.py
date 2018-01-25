@@ -33,13 +33,6 @@ def in_channel_response(text):
     }
 
 
-def in_channel_response_as_user(text, user, icon_url):
-    body = in_channel_response(text)
-    body['username'] = user
-    body['icon_url'] = icon_url
-    return body
-
-
 def ephemeral_response(text):
     return {
         'response_type': 'ephemeral',

@@ -14,9 +14,5 @@ def handle(command_text):
         'image': character_icon
     }
     character_data.add_character(character)
-    slack_body = slackutil.in_channel_response_as_user(
-        'I\'m alive!',
-        character_name,
-        character_icon
-    )
+    slack_body = slackutil.in_channel_response('Successfully added \"' + character_name + '\" as a character.')
     return webutil.respond_success_json(slack_body)

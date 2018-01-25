@@ -5,7 +5,7 @@ from lib.data import players as player_data
 
 def handle(command_text):
     player_components = command_text.split(' ')
-    new_player_id = re.sub('[<@]', '', player_components[1].split('|')[0])
+    new_player_id = re.sub('[<@]', '', player_components[2].split('|')[0])
 
     player = player_data.get_player(new_player_id)
     if player is not None:

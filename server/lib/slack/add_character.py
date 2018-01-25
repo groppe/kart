@@ -11,7 +11,7 @@ def handle(command_text):
         'name': character_components[1],
         'image': character_components[2].ltrim()
     }
-    character_data.add_character(character_data)
+    character_data.add_character(character)
     slack_body = slackutil.in_channel_response_as_user(
         'I\'m alive!',
         character_components[1],

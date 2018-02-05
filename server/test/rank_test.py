@@ -122,7 +122,7 @@ class RankTests(unittest.TestCase):
         result = rank.get_player_score(score_entry)
 
         # Assert
-        self.assertEquals(result, score)
+        self.assertEqual(result, score)
 
     def testCalculateAverage_WhenGamesPlayed_ReturnsAverage(self):
 

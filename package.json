@@ -20,8 +20,9 @@
     "aws"
   ],
   "dependencies": {
-  	"@angular/cli": "1.5.4",
-    "serverless": "latest"
+    "@angular/cli": "1.5.4",
+    "serverless": "latest",
+    "serverless-python-requirements": "^3.3.0"
   },
   "author": "Joshua Groppe",
   "license": "ISC",

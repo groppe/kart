@@ -2,7 +2,7 @@
 import logging
 import os
 import sys
-import urlparse
+from urllib import parse as urlparse
 
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 

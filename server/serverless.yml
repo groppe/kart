@@ -2,7 +2,7 @@ service: kartskill
 
 provider:
   name: aws
-  runtime: python2.7
+  runtime: python3.6
   stage: dev
   environment:
     SLACK_TOKEN: ${env:SLACK_TOKEN}
@@ -10,6 +10,13 @@ provider:
     MARIO_MONGO_DB: ${env:MARIO_MONGO_DB}
     PLOTLY_USERNAME: ${env:PLOTLY_USERNAME}
     PLOTLY_API_KEY: ${env:PLOTLY_API_KEY}
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
 
 functions:
   slack:

@@ -27,4 +27,4 @@ class PlayedGameTest(unittest.TestCase):
         result_components = played_game.parse_results(text)
 
         # Assert
-        self.assertItemsEqual(result_components,expected_result_components)
+        self.assertCountEqual(result_components,expected_result_components)

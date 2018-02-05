@@ -1,5 +1,5 @@
 #!/usr/bin/python2.7
-from mongodb import player_collection
+from lib.data.mongodb import player_collection
 
 
 def all_players():

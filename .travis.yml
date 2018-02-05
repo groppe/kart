@@ -4,6 +4,7 @@ python:
 before_install: cd server
 install:
   - npm install -g serverless
+  - npm install -g serverless-python-requirements
   - pip install coveralls
   - pip install -r requirements.txt -t .
 before_script:

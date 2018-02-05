@@ -39,6 +39,18 @@ def update_player_name(player_id, new_name):
         upsert=True
     )
 
+def update_player_index(player_id, index):
+    player_collection.update_one(
+        {
+            '_id': player_id
+        },
+        {
+            '$set': {
+                'index': index
+            }
+        },
+        upsert=True
+    )
 
 def add_player(userid):
     player_collection.insert_one({

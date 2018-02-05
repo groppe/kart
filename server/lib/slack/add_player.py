@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 import re
 import lib.webutil as webutil
-import slack.util as slackutil
+import lib.slack.util as slackutil
 from lib.data import players as player_data
 
 def handle(command_text):

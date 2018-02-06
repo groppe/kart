@@ -10,12 +10,11 @@ before_install:
   - cd server
 install:
   - pip install coveralls
-  - pip install -r requirements.txt -t .
+  - pip install -r requirements.txt
 before_script:
   - python -m unittest discover -p "*_test.py"
   - python -m coverage run -m unittest discover -p "*_test.py"
   - coveralls
 script:
   - sls plugin install -n serverless-python-requirements
-  - sls requirements clean
   - sls deploy

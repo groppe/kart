@@ -2,7 +2,8 @@ language: python
 python:
   - "3.6"
 before_install:
-  - npm install 
+  - npm install -g serverless
+  - npm install -g serverless-python-requirements
   - cd server
 install:
   - pip install coveralls

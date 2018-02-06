@@ -16,6 +16,6 @@ before_script:
   - python -m coverage run -m unittest discover -p "*_test.py"
   - coveralls
 script:
-  - SLS_DEBUG=*
   - sls plugin install -n serverless-python-requirements
+  - sls requirements clean
   - sls deploy

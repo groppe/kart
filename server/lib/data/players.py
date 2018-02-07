@@ -52,7 +52,17 @@ def update_player_index(player_id, index):
         upsert=True
     )
 
-def add_player(userid):
+def add_player(userid, index):
     player_collection.insert_one({
-        '_id': userid
+        '_id': userid,
+        'index': index
     })
+
+def get_highest_player_index():
+    return player_collection.find().sort(
+        [
+            (
+                'index', -1
+            )
+        ]
+    ).limit(1)[0]['index']

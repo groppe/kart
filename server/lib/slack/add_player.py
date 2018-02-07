@@ -12,5 +12,7 @@ def handle(command_text):
     if player is not None:
         return webutil.respond_success('A player record for <@' + new_player_id + '> already exists.')
 
-    player_data.add_player(new_player_id)
-    return webutil.respond_success(slackutil.in_channel_response('Alright, <@' + new_player_id + '> is ready to play!'))
+    highest_current_index = player_data.get_highest_player_index()
+
+    player_data.add_player(new_player_id, highest_current_index + 1)
+    return webutil.respond_success_json(slackutil.in_channel_response('Alright, <@' + new_player_id + '> is ready to play!'))

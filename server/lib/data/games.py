@@ -38,3 +38,25 @@ def games_for_player(player_id, number_of_games=25):
 
 def add_game(game):
     game_collection.insert_one(game)
+
+def get_last_game():
+    return game_collection.find().sort(
+        [
+            (
+                'datetime', -1
+            )
+        ]
+    ).limit(1)[0]
+
+def get_last_game_for_player(player_id):
+    return game_collection.find(
+        {
+            'scores.player_id': 'U1RCMJFA4'
+        }
+    ).sort(
+            [
+                (
+                    'datetime', -1
+                )
+            ]
+    ).limit(1)[0]

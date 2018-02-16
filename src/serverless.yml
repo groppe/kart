@@ -27,7 +27,7 @@ functions:
           method: post
 
   create:
-    handler: api_person.create
+    handler: api_player.create
     events:
       - http:
           path: api/person
@@ -35,7 +35,7 @@ functions:
           cors: true
 
   list:
-    handler: api_person.list
+    handler: api_player.list
     events:
       - http:
           path: api/person
@@ -43,7 +43,7 @@ functions:
           cors: true
 
   get:
-    handler: api_person.get
+    handler: api_player.get
     events:
       - http:
           path: api/person/{id}
@@ -51,7 +51,7 @@ functions:
           cors: true
 
   update:
-    handler: api_person.update
+    handler: api_player.update
     events:
       - http:
           path: api/person/{id}
@@ -59,7 +59,7 @@ functions:
           cors: true
 
   delete:
-    handler: api_person.delete
+    handler: api_player.delete
     events:
       - http:
           path: api/person/{id}

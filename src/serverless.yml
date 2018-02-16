@@ -35,7 +35,7 @@ functions:
           cors: true
 
   list:
-    handler: api_player.list
+    handler: api_player.all
     events:
       - http:
           path: api/person

@@ -25,3 +25,43 @@ functions:
       - http:
           path: slack
           method: post
+
+  create:
+    handler: api_person.create
+    events:
+      - http:
+          path: api/person
+          method: post
+          cors: true
+
+  list:
+    handler: api_person.list
+    events:
+      - http:
+          path: api/person
+          method: get
+          cors: true
+
+  get:
+    handler: api_person.get
+    events:
+      - http:
+          path: api/person/{id}
+          method: get
+          cors: true
+
+  update:
+    handler: api_person.update
+    events:
+      - http:
+          path: api/person/{id}
+          method: put
+          cors: true
+
+  delete:
+    handler: api_person.delete
+    events:
+      - http:
+          path: api/person/{id}
+          method: delete
+          cors: true

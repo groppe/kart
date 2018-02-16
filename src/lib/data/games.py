@@ -1,7 +1,9 @@
 #!/usr/bin/python2.7
 from lib.data.mongodb import game_collection
 
-
+def games_in_range(page_size, index):
+    return game_collection.find().skip(index * page_size).limit(page_size)
+    
 def games_for_player(player_id, number_of_games=25):
     return game_collection.aggregate([
         {

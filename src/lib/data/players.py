@@ -55,6 +55,17 @@ def update_player_index(player_id, index):
 def add_player(new_player):
     player_collection.insert_one(new_player)
 
+def update_player(player_id, updated_player):
+    player_collection.update_one(
+        {
+            '_id': player_id
+        },
+        {
+            '$set': update_player
+        },
+        upsert=True
+    )
+
 def add_player_with_id(userid, index):
     player_collection.insert_one({
         '_id': userid,
@@ -72,14 +83,6 @@ def get_highest_player_index():
     ).limit(1)[0]['index']
 
 def set_player_inactive(player_id):
-    player_collection.update_one(
-        {
-            '_id': player_id
-        },
-        {
-            '$set': {
+    update_player(player_id, {
                 'active': False
-            }
-        },
-        upsert=True
-    )
+    })

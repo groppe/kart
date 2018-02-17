@@ -22,8 +22,8 @@ def create(event, context):
     if player_service.player_exists(slack_id):
         return webutil.respond_conflict('a player with this Slack id already exists')
 
-    character_name = request_data.get('character')
-    if not character_service.character_exists(character_name):
+    character_name = request_data.get('character', None)
+    if character_name is not None and not character_service.character_exists(character_name):
         return webutil.respond_not_found('a character with the name you specified for this player does not exist')
 
     new_player = {
@@ -40,6 +40,7 @@ def create(event, context):
 
 def all(event, context):
     logging.critical(event)
+
     all_players = player_data.all_players()
     response = {
         'players': list(all_players)
@@ -48,11 +49,45 @@ def all(event, context):
 
 def get(event, context):
     logging.critical(event)
-    id = event['pathParameters']['id']
+
+    slack_id = event['pathParameters']['id']
+    if not player_service.player_exists(slack_id):
+        return webutil.respond_not_found('a player with this Slack id does not exist')
+
+    request_body = webutil.parse_event_for_request_body(event)
+    if not request_body:
+        return webutil.respond_success('no player data to update was included')
+
+    request_data = json.loads(request_body)
+    updated_player_data = {}
+    
+    player_name = request_data.get('name', None)
+    if player_name is not None:
+        updated_player_data['name'] = player_name
+
+    character_name = request_data.get('character', None)
+    if character_name is not None:
+        if not character_service.character_exists(character_name):
+            return webutil.respond_not_found('a character with the name you specified for this player does not exist')
+        else:
+            updated_player_data['character'] = player_name
+
+    player_active = request_data.get('active', None)
+    if player_active is not None:
+        if player_active is True or player_active is False:
+            updated_player_data['active'] = player_active
+        else:
+            webutil.respond_bad_request('active must be true or false')
+
+    player_data.update_player(id, updated_player_data)
+
+    return webutil.respond_success(slack_id)
 
 def update(event, context):
     logging.critical(event)
+
     data = json.loads(event['body'])
+    id = event['pathParameters']['id']
 
 def delete(event, context):
     logging.critical(event)

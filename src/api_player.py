@@ -1,4 +1,5 @@
 #!/usr/bin/python3.6
+import bson
 import re
 import json
 import logging
@@ -55,7 +56,7 @@ def get(event, context):
     if player is None:
         return webutil.respond_not_found('a player with that Slack id does not exist')
     
-    return webutil.respond_success_json(list(player))
+    return webutil.respond_success_json(bson.json_util.dumps(player))
 
 def update(event, context):
     logging.critical(event)

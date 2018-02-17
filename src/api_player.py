@@ -90,7 +90,7 @@ def update(event, context):
         else:
             webutil.respond_bad_request('active must be true or false')
 
-    player_data.update_player(id, updated_player_data)
+    player_data.update_player(slack_id, updated_player_data)
 
     return webutil.respond_success(slack_id)
 
@@ -105,6 +105,6 @@ def delete(event, context):
         'active': False
     }
 
-    player_data.update_player(id, updated_player_data)
+    player_data.update_player(slack_id, updated_player_data)
 
     return webutil.respond_success(slack_id)

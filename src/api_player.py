@@ -45,11 +45,21 @@ def all(event, context):
     response = {
         'players': list(all_players)
     }
-    return webutil.respond_success_json(json.dumps(response))
+    return webutil.respond_success_json(response)
 
 def get(event, context):
     logging.critical(event)
 
+    slack_id = event['pathParameters']['id']
+    player = player_data.get_player(slack_id)
+    if player is None:
+        return webutil.respond_not_found('a player with that Slack id does not exist')
+    
+    return webutil.respond_success_json(list(player))
+
+def update(event, context):
+    logging.critical(event)
+    
     slack_id = event['pathParameters']['id']
     if not player_service.player_exists(slack_id):
         return webutil.respond_not_found('a player with this Slack id does not exist')
@@ -82,12 +92,6 @@ def get(event, context):
     player_data.update_player(id, updated_player_data)
 
     return webutil.respond_success(slack_id)
-
-def update(event, context):
-    logging.critical(event)
-
-    data = json.loads(event['body'])
-    id = event['pathParameters']['id']
 
 def delete(event, context):
     logging.critical(event)

@@ -81,7 +81,7 @@ def update(event, context):
         if not character_service.character_exists(character_name):
             return webutil.respond_not_found('a character with the name you specified for this player does not exist')
         else:
-            updated_player_data['character'] = player_name
+            updated_player_data['character'] = character_name
 
     player_active = request_data.get('active', None)
     if player_active is not None:

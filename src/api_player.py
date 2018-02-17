@@ -95,4 +95,15 @@ def update(event, context):
 
 def delete(event, context):
     logging.critical(event)
-    id = event['pathParameters']['id']
+    
+    slack_id = event['pathParameters']['id']
+    if not player_service.player_exists(slack_id):
+        return webutil.respond_not_found('a player with this Slack id does not exist')
+
+    updated_player_data = {
+        'active': False
+    }
+
+    player_data.update_player(id, updated_player_data)
+
+    return webutil.respond_success(slack_id)

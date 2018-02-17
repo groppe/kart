@@ -61,7 +61,7 @@ def update_player(player_id, updated_player):
             '_id': player_id
         },
         {
-            '$set': update_player
+            '$set': updated_player
         },
         upsert=True
     )

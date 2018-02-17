@@ -30,6 +30,7 @@ def create(event, context):
         '_id': slack_id,
         'name': request_data.get('name'),
         'character': character_name,
+        'active': True,
         'index': player_service.determine_players_index()
     }
 
@@ -40,7 +41,10 @@ def create(event, context):
 def all(event, context):
     logging.critical(event)
     all_players = player_data.all_players()
-    return webutil.respond_success_json(json.dumps(list(all_players)))
+    response = {
+        'players': list(all_players)
+    }
+    return webutil.respond_success_json(json.dumps(response))
 
 def get(event, context):
     logging.critical(event)

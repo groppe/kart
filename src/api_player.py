@@ -5,7 +5,6 @@ import json
 import logging
 import lib.slack.add_player as player_service
 import lib.slack.set_character as character_service
-from bson.json_util import dumps
 from lib import webutil as webutil
 from lib.data import players as player_data
 
@@ -57,7 +56,7 @@ def get(event, context):
     if player is None:
         return webutil.respond_not_found('a player with that Slack id does not exist')
     
-    return webutil.respond_success_json(dumps(player))
+    return webutil.respond_success_json(player)
 
 def update(event, context):
     logging.critical(event)

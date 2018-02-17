@@ -52,7 +52,10 @@ def update_player_index(player_id, index):
         upsert=True
     )
 
-def add_player(userid, index):
+def add_player(new_player):
+    player_collection.insert_one(new_player)
+
+def add_player_with_id(userid, index):
     player_collection.insert_one({
         '_id': userid,
         'index': index

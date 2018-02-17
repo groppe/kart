@@ -12,9 +12,15 @@ def handle(userid, command_text):
 
     command_text_components = re.split(r'[\"\"]', command_text)
     character_name = command_text_components[1]
-    character = character_data.get_character_by_name(character_name)
-    if character is None:
+    if character_exists(character_name):
         return webutil.respond_success('A character with that name does not exist.')
 
     player_data.update_player_character(userid, character_name)
     return webutil.respond_success('Alright, <@' + userid + '>, your character is ' + character_name + '!')
+
+def character_exists(character_name):
+    character = character_data.get_character_by_name(character_name)
+    if character is None:
+        return False
+    else:
+        return True

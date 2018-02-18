@@ -12,9 +12,9 @@ jobs:
       script:
         - npm install -g serverless
         - npm install -g serverless-python-requirements
-        - cd src
     - stage: unit test
       script:
+        - cd src
         - pip install coveralls
         - pip install -r requirements.txt
 stages:

@@ -3,7 +3,7 @@ from lib.data.mongodb import player_collection
 
 
 def all_players():
-    return player_collection.find()
+    return player_collection.find({ 'active': True })
 
 
 def get_player(player_id):
@@ -81,6 +81,11 @@ def get_highest_player_index():
             )
         ]
     ).limit(1)[0]['index']
+
+def set_player_active(player_id):
+    update_player(player_id, {
+                'active': True
+    })
 
 def set_player_inactive(player_id):
     update_player(player_id, {

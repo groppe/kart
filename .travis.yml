@@ -6,13 +6,17 @@ env:
   - DEPLOY_ENV=dev
 services:
   - docker
-before_install:
-  - npm install -g serverless
-  - npm install -g serverless-python-requirements
-  - cd src
-install:
-  - pip install coveralls
-  - pip install -r requirements.txt
+jobs:
+  include:
+    - stage: setup and install
+      script:
+        - npm install -g serverless
+        - npm install -g serverless-python-requirements
+        - cd src
+    - stage: unit test
+      script:
+        - pip install coveralls
+        - pip install -r requirements.txt
 stages:
   - name: unit test
     script:
@@ -39,7 +43,3 @@ stages:
     script:
       - sls plugin install -n serverless-python-requirements
       - sls deploy
-jobs:
-  include:
-    stage: setup and install
-    stage: unit test

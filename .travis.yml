@@ -6,14 +6,14 @@ env:
   - DEPLOY_ENV=dev
 services:
   - docker
+before_install:
+  - npm install -g serverless
+  - npm install -g serverless-python-requirements
+  - cd src
+install:
+  - pip install coveralls
+  - pip install -r requirements.txt
 stages:
-  - name: setup and install
-    script:
-      - npm install -g serverless
-      - npm install -g serverless-python-requirements
-      - cd src
-      - pip install coveralls
-      - pip install -r requirements.txt
   - name: unit test
     script:
       - python -m unittest discover -p "*_test.py"

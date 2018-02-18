@@ -3,7 +3,7 @@ service: kartskill
 provider:
   name: aws
   runtime: python3.6
-  stage: dev
+  stage: ${env:DEPLOY_ENV}
   environment:
     SLACK_TOKEN: ${env:SLACK_TOKEN}
     MARIO_MONGO_URI: ${env:MARIO_MONGO_URI}

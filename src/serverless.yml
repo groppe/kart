@@ -1,0 +1,145 @@
+service: kartskill
+
+provider:
+  name: aws
+  runtime: python3.6
+  stage: ${env:DEPLOY_ENV}
+  environment:
+    SLACK_TOKEN: ${env:SLACK_TOKEN}
+    MARIO_MONGO_URI: ${env:MARIO_MONGO_URI}
+    MARIO_MONGO_DB: ${env:MARIO_MONGO_DB}
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
+functions:
+  slack:
+    handler: slack_handler.handle
+    events:
+      - http:
+          path: slack
+          method: post
+
+  create_player:
+    handler: api_player.create
+    events:
+      - http:
+          path: api/player
+          method: post
+          cors: true
+
+  list_players:
+    handler: api_player.all
+    events:
+      - http:
+          path: api/player
+          method: get
+          cors: true
+
+  get_player:
+    handler: api_player.get
+    events:
+      - http:
+          path: api/player/{id}
+          method: get
+          cors: true
+
+  update_player:
+    handler: api_player.update
+    events:
+      - http:
+          path: api/player/{id}
+          method: put
+          cors: true
+
+  delete_player:
+    handler: api_player.delete
+    events:
+      - http:
+          path: api/player/{id}
+          method: delete
+          cors: true
+
+  create_game:
+    handler: api_game.create
+    events:
+      - http:
+          path: api/game
+          method: post
+          cors: true
+
+  list_games:
+    handler: api_game.all
+    events:
+      - http:
+          path: api/game
+          method: get
+          cors: true
+
+  get_game:
+    handler: api_game.get
+    events:
+      - http:
+          path: api/game/{id}
+          method: get
+          cors: true
+
+  update_game:
+    handler: api_game.update
+    events:
+      - http:
+          path: api/game/{id}
+          method: put
+          cors: true
+
+  delete_game:
+    handler: api_game.delete
+    events:
+      - http:
+          path: api/game/{id}
+          method: delete
+          cors: true
+
+  create_character:
+    handler: api_character.create
+    events:
+      - http:
+          path: api/character
+          method: post
+          cors: true
+
+  list_characters:
+    handler: api_character.all
+    events:
+      - http:
+          path: api/character
+          method: get
+          cors: true
+
+  get_character:
+    handler: api_character.get
+    events:
+      - http:
+          path: api/character/{id}
+          method: get
+          cors: true
+
+  update_character:
+    handler: api_character.update
+    events:
+      - http:
+          path: api/character/{id}
+          method: put
+          cors: true
+
+  delete_character:
+    handler: api_character.delete
+    events:
+      - http:
+          path: api/character/{id}
+          method: delete
+          cors: true

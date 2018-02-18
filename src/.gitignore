@@ -1,0 +1,6 @@
+*.pyc
+.serverless
+node_modules
+deploy
+.coverage
+htmlcov

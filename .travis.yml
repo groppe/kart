@@ -17,7 +17,7 @@ jobs:
         - python -m coverage run -m unittest discover -p "*_test.py"
         - coveralls
     - stage: dev deploy
-      if: branch = master
+      if: branch = development
       env:
         - DEPLOY_ENV=dev
         - secure: "azA1ySXPuGfcMcNaofQlHSgKSmA6lBPyTTHlwsA6RGv4L2s2juHM7NeyoskU2oaejtiCP/Pv8OTuM2DMZ5n/tcpdh2Uo77Zu/LbCm5DVklYez9U1N32nv9xm+E8UJlVZ3Gv5Q8CbxoPDr3SQGZaPkdxdbk8BVsYrjlVgdTFaT61/AK2LQXyfhPXtgnctm8QlPXkpBQiW2XQAl2w9XallyWN3+lt1QWGkB5veZLjZAJRC/dWhR1Z/mxyEKA289bXAkCy7VX+3/1p5ZCxcjNvscszmxX9MszfxVec0HyQXLJt9F6ImwLJ61NM4zQEoNGoPQeRbc0zR8NfZcBUlkcMCnSiQBE5yccNnZDusFlPes2PbwSs5Vav/HaPe2L9PT8nZzyzKPiulMK4FAXh27hY91b+/6AFPtPdETt4Vi8KUIU6jPE+1kti1UdyheVJfb594eMj0THqtF31wcJckJUMe75SVAb1ZorS1TMR9l9A71fRa9d6DkOL/29mHqAfWi9tusGb5cj7xFl6b3L1Jk1hrTofgahO75lOVdeQhkuWVbWixoIeEdqOOKfYWCAkGAIuDfeAAZnvm6bU7+8SR2AxDJRdVQyoiMHXROeXs3CeslsWNExgraErzReAQmxDdAndI9e2tn08HRav7lg5GD2RiddJ8pu2XvbkDEwd1l+25tF0="
@@ -33,7 +33,7 @@ jobs:
 stages:
   - name: unit test
   - name: dev deploy
-    if: branch = master
+    if: branch = development
   - name: prod deploy
     if: branch = master
     env:

@@ -39,3 +39,7 @@ stages:
     script:
       - sls plugin install -n serverless-python-requirements
       - sls deploy
+jobs:
+  include:
+    stage: setup and install
+    stage: unit test

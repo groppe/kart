@@ -17,22 +17,23 @@ jobs:
         - python -m coverage run -m unittest discover -p "*_test.py"
         - coveralls
     - stage: dev deploy
+      if: branch = master
+      env:
+        - DEPLOY_ENV=dev
+        - secure: "azA1ySXPuGfcMcNaofQlHSgKSmA6lBPyTTHlwsA6RGv4L2s2juHM7NeyoskU2oaejtiCP/Pv8OTuM2DMZ5n/tcpdh2Uo77Zu/LbCm5DVklYez9U1N32nv9xm+E8UJlVZ3Gv5Q8CbxoPDr3SQGZaPkdxdbk8BVsYrjlVgdTFaT61/AK2LQXyfhPXtgnctm8QlPXkpBQiW2XQAl2w9XallyWN3+lt1QWGkB5veZLjZAJRC/dWhR1Z/mxyEKA289bXAkCy7VX+3/1p5ZCxcjNvscszmxX9MszfxVec0HyQXLJt9F6ImwLJ61NM4zQEoNGoPQeRbc0zR8NfZcBUlkcMCnSiQBE5yccNnZDusFlPes2PbwSs5Vav/HaPe2L9PT8nZzyzKPiulMK4FAXh27hY91b+/6AFPtPdETt4Vi8KUIU6jPE+1kti1UdyheVJfb594eMj0THqtF31wcJckJUMe75SVAb1ZorS1TMR9l9A71fRa9d6DkOL/29mHqAfWi9tusGb5cj7xFl6b3L1Jk1hrTofgahO75lOVdeQhkuWVbWixoIeEdqOOKfYWCAkGAIuDfeAAZnvm6bU7+8SR2AxDJRdVQyoiMHXROeXs3CeslsWNExgraErzReAQmxDdAndI9e2tn08HRav7lg5GD2RiddJ8pu2XvbkDEwd1l+25tF0="
+        - secure: "GrDgKW3os/YV/GNHie4xwalUI2ZaqS+H/JQDfPrjEqTS++EbFBUQBkM/9JKPnZg4AdugV5DmtW+CEIH76fdZqLzBXvkpWdBvXKGanTwkuIxxcKqabjZuFiO3xMwi5pLsE4yrNEALqRGCAeTb06A5nDtq2X5QmIxK94OtxvkEZkTo9avOqAdWnJcY2dxg4iXgyH1eCLKGjBglDQRNTolp2SH/Ypkl2oIehL+vpCzwBxAtHUL7SEsMNi7av4zOsjXRuI62UZrh9XN+aWsNW8h5GwNbqCs4s2EpS1GH/xS+qOZM57hP4dMKw/HCu69huKvefieIVoyQeLI+l0dG0S81RC/eyUozO099jIcDY6PXz2+h3Q8rIZlqU8jgNCQofk/gcEPVi05+gXKJX0/YNmQZB9DWITNjBuUO69nxgJECdACZe64w4du6XIBPNHrwBPEA050mCbjIfbYKXWh4NCYHeTAjQC2YZe/RDabFVu2FkcEMxIxw7JRSbXRHH2SKi1gepaI4l5vHPbIEGKQSBK+fY/emNLpE+aAgWDe/H+lB6d2J9t6x6eGK1tQO4+RXhtBOMzGMtSbn2MRDD5attcvv4lAwQ8+EsgiwpnJoWY7c6GwA9QwA6Q9NywF0gKOdwnsXrqNTn8pBf7VQPb/Ov+CsywoEJ6Q43z7d7W5m+ENzmvQ="
+        - secure: "VUkRzTlhzrf4hbylbTUdjBjtMx9EyxVjH83ZmMbBcYgJQ0Ixm0q1xQAnSwYUF+1xHszffB7355f0YuJTtpbG8uzSVDCeT/ME97tUEm60ngqdbuf4Fs04d0Sz0hB1Tvp5K1vh1hskXgMx9YkI1o+uUFAgr0CM+5tkBK92Rt6Epf0QkPhkOx9y+vk+qC503DwbbJuDHPlPDQp+ZbwISVrT9LwFV0YctIwK7rJwpMJXD4K4b4fghDdr1jYApgC0/V7xXOsXRfasQS35xfy4ZphdIF9LmsjMxxp7/tTvskO1lFjGa7z5P9yegznM8y7huOU1oeYswp+8iKY89N3+z5DtXmqAViqRP9E6JfsIlfnsS/u4lqFu9fUK6Gjxq2loZWNGirW+cMjHmwEX/uFdrpXt6Mkftqo+FxiZs89K4ly7m1Pl4DSs3qD8fjNLccaMNPevU5nT0V1M3C1IaGRY+iI2E5Pop8sYNSCxKkpAAjCPmLAhTo0B2svlRhnhftxQ+1qb2YZQdGooMlC+T2tCrI9JjNKbEdaX3qnwixYFTrCGUbBeWziklqnqLPsGTz2LD63gDbFlFF8HHbLh3birrxgo4Z9w14exa4Z6uTqMo38EAxRiYdykxKm56I2L7cJB5nt2Cx9ocel9Uap7RotO5NiloCRFN8ynji5LSl/iXd9dlZw="
+      script:
+        - npm install -g serverless
+        - npm install -g serverless-python-requirements
+        - cd src
+        - pip install -r requirements.txt
+        - sls plugin install -n serverless-python-requirements
+        - sls deploy
 stages:
   - name: unit test
   - name: dev deploy
-    if: branch = development
-    env:
-      - DEPLOY_ENV=dev
-      - secure: "azA1ySXPuGfcMcNaofQlHSgKSmA6lBPyTTHlwsA6RGv4L2s2juHM7NeyoskU2oaejtiCP/Pv8OTuM2DMZ5n/tcpdh2Uo77Zu/LbCm5DVklYez9U1N32nv9xm+E8UJlVZ3Gv5Q8CbxoPDr3SQGZaPkdxdbk8BVsYrjlVgdTFaT61/AK2LQXyfhPXtgnctm8QlPXkpBQiW2XQAl2w9XallyWN3+lt1QWGkB5veZLjZAJRC/dWhR1Z/mxyEKA289bXAkCy7VX+3/1p5ZCxcjNvscszmxX9MszfxVec0HyQXLJt9F6ImwLJ61NM4zQEoNGoPQeRbc0zR8NfZcBUlkcMCnSiQBE5yccNnZDusFlPes2PbwSs5Vav/HaPe2L9PT8nZzyzKPiulMK4FAXh27hY91b+/6AFPtPdETt4Vi8KUIU6jPE+1kti1UdyheVJfb594eMj0THqtF31wcJckJUMe75SVAb1ZorS1TMR9l9A71fRa9d6DkOL/29mHqAfWi9tusGb5cj7xFl6b3L1Jk1hrTofgahO75lOVdeQhkuWVbWixoIeEdqOOKfYWCAkGAIuDfeAAZnvm6bU7+8SR2AxDJRdVQyoiMHXROeXs3CeslsWNExgraErzReAQmxDdAndI9e2tn08HRav7lg5GD2RiddJ8pu2XvbkDEwd1l+25tF0="
-      - secure: "GrDgKW3os/YV/GNHie4xwalUI2ZaqS+H/JQDfPrjEqTS++EbFBUQBkM/9JKPnZg4AdugV5DmtW+CEIH76fdZqLzBXvkpWdBvXKGanTwkuIxxcKqabjZuFiO3xMwi5pLsE4yrNEALqRGCAeTb06A5nDtq2X5QmIxK94OtxvkEZkTo9avOqAdWnJcY2dxg4iXgyH1eCLKGjBglDQRNTolp2SH/Ypkl2oIehL+vpCzwBxAtHUL7SEsMNi7av4zOsjXRuI62UZrh9XN+aWsNW8h5GwNbqCs4s2EpS1GH/xS+qOZM57hP4dMKw/HCu69huKvefieIVoyQeLI+l0dG0S81RC/eyUozO099jIcDY6PXz2+h3Q8rIZlqU8jgNCQofk/gcEPVi05+gXKJX0/YNmQZB9DWITNjBuUO69nxgJECdACZe64w4du6XIBPNHrwBPEA050mCbjIfbYKXWh4NCYHeTAjQC2YZe/RDabFVu2FkcEMxIxw7JRSbXRHH2SKi1gepaI4l5vHPbIEGKQSBK+fY/emNLpE+aAgWDe/H+lB6d2J9t6x6eGK1tQO4+RXhtBOMzGMtSbn2MRDD5attcvv4lAwQ8+EsgiwpnJoWY7c6GwA9QwA6Q9NywF0gKOdwnsXrqNTn8pBf7VQPb/Ov+CsywoEJ6Q43z7d7W5m+ENzmvQ="
-      - secure: "VUkRzTlhzrf4hbylbTUdjBjtMx9EyxVjH83ZmMbBcYgJQ0Ixm0q1xQAnSwYUF+1xHszffB7355f0YuJTtpbG8uzSVDCeT/ME97tUEm60ngqdbuf4Fs04d0Sz0hB1Tvp5K1vh1hskXgMx9YkI1o+uUFAgr0CM+5tkBK92Rt6Epf0QkPhkOx9y+vk+qC503DwbbJuDHPlPDQp+ZbwISVrT9LwFV0YctIwK7rJwpMJXD4K4b4fghDdr1jYApgC0/V7xXOsXRfasQS35xfy4ZphdIF9LmsjMxxp7/tTvskO1lFjGa7z5P9yegznM8y7huOU1oeYswp+8iKY89N3+z5DtXmqAViqRP9E6JfsIlfnsS/u4lqFu9fUK6Gjxq2loZWNGirW+cMjHmwEX/uFdrpXt6Mkftqo+FxiZs89K4ly7m1Pl4DSs3qD8fjNLccaMNPevU5nT0V1M3C1IaGRY+iI2E5Pop8sYNSCxKkpAAjCPmLAhTo0B2svlRhnhftxQ+1qb2YZQdGooMlC+T2tCrI9JjNKbEdaX3qnwixYFTrCGUbBeWziklqnqLPsGTz2LD63gDbFlFF8HHbLh3birrxgo4Z9w14exa4Z6uTqMo38EAxRiYdykxKm56I2L7cJB5nt2Cx9ocel9Uap7RotO5NiloCRFN8ynji5LSl/iXd9dlZw="
-    script:
-      - npm install -g serverless
-      - npm install -g serverless-python-requirements
-      - cd src
-      - pip install -r requirements.txt
-      - sls plugin install -n serverless-python-requirements
-      - sls deploy
+    if: branch = master
   - name: prod deploy
     if: branch = master
     env:

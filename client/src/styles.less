@@ -1,0 +1,84 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+
+@import url('https://fonts.googleapis.com/css?family=Days+One');
+
+* {
+  font-family: 'Days One', sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+
+  &.light-blue-hover {
+    transition: .2s all ease-in-out;
+
+    &:hover {
+      background: @lightBackgroundBlue;
+    }
+  }
+}
+
+.table-row {
+  display: table-row;
+}
+
+.fade {
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.body-wrapper {
+  &::after {
+    content: "";
+    background: url('./app/assets/images/mk-home.jpg') no-repeat center;
+    background-size: cover;
+    opacity: 0.5;
+    top: 0;
+    right: 0;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rounded-blk-border {
+  border-radius: 15px;
+  border: 10px solid @lightBlack;
+}
+
+.yellow {
+  color: @yellow;
+}
+
+.white {
+  color: white;
+}
+
+.blue-bg {
+  background-color: @backgroundBlue;
+}

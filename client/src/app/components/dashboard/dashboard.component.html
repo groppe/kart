@@ -1,0 +1,12 @@
+<div class="content-wrapper">
+  <app-bigboard
+    (onSelectedPlayer)="onSelectedPlayer($event)"
+    [selectedPlayer]="selectedPlayer">
+  </app-bigboard>
+
+  <app-player-detail
+    *ngIf="selectedPlayer"
+    [player]="selectedPlayer"
+    (onCloseDetail)="closeDetails($event)">
+  </app-player-detail>
+</div>

@@ -1,0 +1,29 @@
+<div>
+  <h2>Big Board</h2>
+  <table class="blue-bg rounded-blk-border white">
+    <thead>
+    <tr class="yellow">
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Character</th>
+      <th>Average</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <a *ngFor="let player of rankings; let i=index"
+       [class.selected]="player === selectedPlayer"
+       (click)="onSelect(player, $event)"
+       class="table-row light-blue-hover"
+       href="/player/{{player.id}}">
+      <td>{{ i + 1 }}</td>
+      <td>{{player.name}}</td>
+      <td>{{player.character}}</td>
+      <td>{{player.average}}</td>
+      <td><img src="{{player.image}}"></td>
+    </a>
+    </tbody>
+  </table>
+</div>
+
+

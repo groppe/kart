@@ -1,0 +1,51 @@
+<h2>{{player.name}}'s Stats</h2>
+<div class="wrapper rounded-blk-border">
+  <a (click)="closeDetail($event)"
+     class="close-details fade"
+     href="/dashboard">
+     &times;</a>
+  <h3>{{player.character}}</h3>
+  <div class="avatar">
+    <img src="{{player.image}}">
+  </div>
+
+  <div *ngIf="results" class="player-results">
+    <h3>Last 25 Results</h3>
+    <table>
+      <a *ngFor="let result of results | slice:0:25"
+         (click)="onSelect(result.id)"
+          class="light-blue-hover table-row">
+        <td><time>{{result.date | date:'MMM d, EEE'}}</time></td>
+        <td>{{result.average}}</td>
+      </a>
+    </table>
+    <h3>Recently Dropped</h3>
+    <table>
+      <a *ngFor="let result of results | slice:25:30"
+         (click)="onSelect(result.id)"
+         class="light-blue-hover table-row">
+        <td><time>{{result.date | date:'MMM d, EEE'}}</time></td>
+        <td>{{result.average}}</td>
+      </a>
+    </table>
+  </div>
+
+  <div *ngIf="gameDetail" class="game-popup-overlay"
+       (click)="closeOverlay()">
+    <div *ngIf="gameDetail"
+         (click)="stopPropagation($event)"
+         class="game-popup rounded-blk-border">
+      <a (click)="closeOverlay()"
+         class="close-details fade">&times;</a>
+      <h3 class="yellow"><time>{{gameDetail.datetime | date:'MMM d, EEE'}}</time></h3>
+      <h5 class="yellow"><time>{{gameDetail.datetime | date:'shortTime'}}</time></h5>
+      <h4 class="yellow">{{gameDetail.games}} Games</h4>
+      <div class="scores">
+        <div *ngFor="let score of gameDetail.scores" class="flex">
+          <p>{{score.name}}</p>
+          <p>{{score.average}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

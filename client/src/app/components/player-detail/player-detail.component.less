@@ -1,0 +1,101 @@
+@import '../../../variables';
+
+h2 {
+  text-align: center ;
+}
+
+.wrapper {
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+  background: @backgroundBlue;
+  color: white;
+
+  .avatar {
+    position: absolute;
+    top: 7px;
+    left: 16px;
+    width: 15%;
+  }
+
+  h3 {
+    margin-top: 0;
+    color: @yellow;
+  }
+
+  .player-results {
+
+    h3 {
+      color: white;
+      margin-top: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-spacing: 0;
+
+      td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px 0;
+        width: 50%;
+      }
+    }
+
+  }
+}
+
+.close-details {
+  position: absolute;
+  display: block;
+  color: white;
+  font-size: 2.7em;
+  top: -16px;
+  right: 5px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.game-popup-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,.5);
+
+  .game-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background: @tealGreen;
+    padding: 15px 0;
+
+    h3, h4 {
+      margin-bottom: 0;
+    }
+
+    h5 {
+      margin-top: 0;
+    }
+
+    .scores {
+      width: 75%;
+      margin: 0 auto;
+
+      > div {
+        transition: .2s all ease-in-out;
+        padding: 0 10px;
+
+        &:hover {
+          background-color: @lightBackgroundTealGreen;
+        }
+      }
+    }
+  }
+}

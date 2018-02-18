@@ -1,0 +1,20 @@
+:host {
+
+  app-bigboard {
+    width: 75%;
+    margin: 0 auto;
+    min-width: 320px;
+  }
+
+  &.has-details {
+    app-bigboard, app-player-detail {
+      width: 47%;
+      margin: 0;
+    }
+
+    app-player-detail {
+      position: absolute;
+      right: 3%;
+    }
+  }
+}

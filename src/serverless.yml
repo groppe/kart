@@ -8,8 +8,6 @@ provider:
     SLACK_TOKEN: ${env:SLACK_TOKEN}
     MARIO_MONGO_URI: ${env:MARIO_MONGO_URI}
     MARIO_MONGO_DB: ${env:MARIO_MONGO_DB}
-    PLOTLY_USERNAME: ${env:PLOTLY_USERNAME}
-    PLOTLY_API_KEY: ${env:PLOTLY_API_KEY}
 
 plugins:
   - serverless-python-requirements

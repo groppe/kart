@@ -9,11 +9,11 @@ def create(event, context):
     data = json.loads(event['body'])
 
 def all(event, context):
-    queryStringParameters = event.get('queryStringParameters', {})
+    queryStringParameters = event.get('queryStringParameters', dict())
     size = queryStringParameters.get('size', 25)
     page = queryStringParameters.get('page', 0)
-    player_id = queryStringParameters.get('player_id', None)
-    
+    player_id = queryStringParameters.get('player_id')
+
     query_criteria = {}
     if player_id is not None:
         query_criteria['player_id'] = player_id

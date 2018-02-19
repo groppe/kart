@@ -9,12 +9,11 @@ def create(event, context):
     data = json.loads(event['body'])
 
 def all(event, context):
-    logging.critical(event)
-
-    size = event['queryStringParameters'].get('size', 25)
-    page = event['queryStringParameters'].get('page', 0)
-    player_id = event['queryStringParameters'].get('player_id', None)
-
+    queryStringParameters = event.get('queryStringParameters', {})
+    size = queryStringParameters.get('size', 25)
+    page = queryStringParameters.get('page', 0)
+    player_id = queryStringParameters.get('player_id', None)
+    
     query_criteria = {}
     if player_id is not None:
         query_criteria['player_id'] = player_id
@@ -30,8 +29,6 @@ def all(event, context):
     return webutil.respond_success_json(json.dumps(response))
 
 def get(event, context):
-    logging.critical(event)
-
     game_id = event['pathParameters']['id']
     game = game_data.game_by_id(game_id)
     if game is None:
@@ -44,8 +41,6 @@ def update(event, context):
     data = json.loads(event['body'])
 
 def delete(event, context):
-    logging.critical(event)
-
     game_id = event['pathParameters']['id']
     if not game_data.game_by_id(game_id):
         return webutil.respond_not_found('a game with that id does not exist')

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/groppe/mario.svg?branch=development)](https://travis-ci.org/groppe/mario) [![Coverage Status](https://coveralls.io/repos/github/groppe/mario/badge.svg?branch=development)](https://coveralls.io/github/groppe/mario?branch=development)
+[![Build Status](https://travis-ci.org/groppe/kart.svg?branch=development)](https://travis-ci.org/groppe/kart) [![Coverage Status](https://coveralls.io/repos/github/groppe/mario/kart.svg?branch=development)](https://coveralls.io/github/groppe/kart?branch=development)
 # Kart
 A Slack app and RESTful HTTP API that can be used to keep track of multiplayer game results. It is built using Python, and is deployed to AWS Lambda via Travis CI using the Serverless framework. The application stores player information, game scores, and calculates skill rankings.
 

@@ -31,7 +31,13 @@ def all(event, context):
 
 def get(event, context):
     logging.critical(event)
-    id = event['pathParameters']['id']
+
+    game_id = event['pathParameters']['id']
+    game = game_data.game_by_id(game_id)
+    if game is None:
+        return webutil.respond_not_found('a game with that id does not exist')
+    
+    return webutil.respond_success_json(game)
 
 def update(event, context):
     logging.critical(event)

@@ -1,5 +1,11 @@
 #!/usr/bin/python3.6
+from bson.objectid import ObjectId
 from lib.data.mongodb import game_collection
+
+def game_by_id(game_id):
+    return game_collection.find({
+        '_id': ObjectId(game_id)
+    })
 
 def games_in_range(criteria, page_size, index):
     return game_collection.find(criteria).skip(index * page_size).limit(page_size)

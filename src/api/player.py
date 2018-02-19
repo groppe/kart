@@ -1,6 +1,4 @@
 #!/usr/bin/python3.6
-import bson
-import re
 import json
 import logging
 import lib.slack.add_player as player_service

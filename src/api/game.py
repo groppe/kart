@@ -1,5 +1,4 @@
 #!/usr/bin/python3.6
-import re
 import json
 import logging
 from lib import webutil as webutil

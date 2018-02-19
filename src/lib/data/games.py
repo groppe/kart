@@ -68,3 +68,8 @@ def get_last_game_for_player(player_id):
                 )
             ]
     ).limit(1)[0]
+
+def delete_game(game_id):
+    return game_collection.delete_one({
+        '_id': ObjectId(game_id)
+    })

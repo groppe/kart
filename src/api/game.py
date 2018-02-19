@@ -45,4 +45,11 @@ def update(event, context):
 
 def delete(event, context):
     logging.critical(event)
-    id = event['pathParameters']['id']
+
+    game_id = event['pathParameters']['id']
+    if not game_data.game_by_id(game_id):
+        return webutil.respond_not_found('a game with that id does not exist')
+
+    game_data.delete_game(game_id)
+
+    return webutil.respond_success(game_id)

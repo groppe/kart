@@ -18,14 +18,14 @@ custom:
 
 functions:
   slack:
-    handler: slack_handler.handle
+    handler: api/slack.handle
     events:
       - http:
           path: slack
           method: post
 
   create_player:
-    handler: api_player.create
+    handler: api/player.create
     events:
       - http:
           path: api/player
@@ -33,7 +33,7 @@ functions:
           cors: true
 
   list_players:
-    handler: api_player.all
+    handler: api/player.all
     events:
       - http:
           path: api/player
@@ -41,7 +41,7 @@ functions:
           cors: true
 
   get_player:
-    handler: api_player.get
+    handler: api/player.get
     events:
       - http:
           path: api/player/{id}
@@ -49,7 +49,7 @@ functions:
           cors: true
 
   update_player:
-    handler: api_player.update
+    handler: api/player.update
     events:
       - http:
           path: api/player/{id}
@@ -57,7 +57,7 @@ functions:
           cors: true
 
   delete_player:
-    handler: api_player.delete
+    handler: api/player.delete
     events:
       - http:
           path: api/player/{id}
@@ -65,7 +65,7 @@ functions:
           cors: true
 
   create_game:
-    handler: api_game.create
+    handler: api/game.create
     events:
       - http:
           path: api/game
@@ -73,7 +73,7 @@ functions:
           cors: true
 
   list_games:
-    handler: api_game.all
+    handler: api/game.all
     events:
       - http:
           path: api/game
@@ -81,7 +81,7 @@ functions:
           cors: true
 
   get_game:
-    handler: api_game.get
+    handler: api/game.get
     events:
       - http:
           path: api/game/{id}
@@ -89,7 +89,7 @@ functions:
           cors: true
 
   update_game:
-    handler: api_game.update
+    handler: api/game.update
     events:
       - http:
           path: api/game/{id}
@@ -97,7 +97,7 @@ functions:
           cors: true
 
   delete_game:
-    handler: api_game.delete
+    handler: api/game.delete
     events:
       - http:
           path: api/game/{id}
@@ -105,7 +105,7 @@ functions:
           cors: true
 
   create_character:
-    handler: api_character.create
+    handler: api/character.create
     events:
       - http:
           path: api/character
@@ -113,7 +113,7 @@ functions:
           cors: true
 
   list_characters:
-    handler: api_character.all
+    handler: api/character.all
     events:
       - http:
           path: api/character
@@ -121,7 +121,7 @@ functions:
           cors: true
 
   get_character:
-    handler: api_character.get
+    handler: api/character.get
     events:
       - http:
           path: api/character/{id}
@@ -129,7 +129,7 @@ functions:
           cors: true
 
   update_character:
-    handler: api_character.update
+    handler: api/character.update
     events:
       - http:
           path: api/character/{id}
@@ -137,7 +137,7 @@ functions:
           cors: true
 
   delete_character:
-    handler: api_character.delete
+    handler: api/character.delete
     events:
       - http:
           path: api/character/{id}

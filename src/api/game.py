@@ -10,11 +10,20 @@ def create(event, context):
 
 def all(event, context):
     logging.critical(event)
+
     size = event['queryStringParameters'].get('size', 25)
     page = event['queryStringParameters'].get('page', 0)
-    games = game_data.games_in_range(size, page)
+    player_id = event['queryStringParameters'].get('player_id', None)
+
+    query_criteria = {}
+    if player_id is not None:
+        query_criteria['player_id'] = player_id
+
+    games = game_data.games_in_range(query_criteria, size, page)
+
     response = {
         'games': list(games),
+        'player_id': player_id,
         'size': size,
         'page': page
     }

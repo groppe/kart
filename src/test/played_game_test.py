@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 import unittest
 import lib.slack.played_game as played_game
 

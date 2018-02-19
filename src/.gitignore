@@ -3,4 +3,5 @@
 node_modules
 deploy
 .coverage
-htmlcov
+htmlcovi
+.DS_Store

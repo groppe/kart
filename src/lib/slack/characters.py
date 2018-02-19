@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 from lib.data import characters as character_data
 import lib.webutil as webutil
 import lib.slack.util as slackutil

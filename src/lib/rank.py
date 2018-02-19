@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 from lib.data import games as game_data
 from lib.data import players as player_data
 

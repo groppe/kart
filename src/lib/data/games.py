@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 from lib.data.mongodb import game_collection
 
 def games_in_range(page_size, index):

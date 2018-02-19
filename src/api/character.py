@@ -1,9 +1,8 @@
-#!/usr/bin/python2.7
-import re
+#!/usr/bin/python3.6
 import json
 import logging
 from lib import webutil as webutil
-from lib.data import games as game_data
+from lib.data import characters as character_data
 
 def create(event, context):
     logging.critical(event)
@@ -11,15 +10,8 @@ def create(event, context):
 
 def all(event, context):
     logging.critical(event)
-    size = event['queryStringParameters'].get('size', 25)
-    page = event['queryStringParameters'].get('page', 0)
-    games = game_data.games_in_range(size, page)
-    response = {
-        'games': list(games),
-        'size': size,
-        'page': page
-    }
-    return webutil.respond_success_json(json.dumps(response))
+    all_characters = character_data.all_characters()
+    return webutil.respond_success_json(json.dumps(list(all_characters)))
 
 def get(event, context):
     logging.critical(event)

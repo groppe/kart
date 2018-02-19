@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 import re
 import json
 import logging
@@ -16,7 +16,7 @@ import lib.webutil as webutil
 # compile regular expressions for slash command parameter strings
 PATTERN_HELP = re.compile('^help$')
 PATTERN_RANKING = re.compile('^rankings$')
-PATTERN_PLAYED = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|\w+>)\s+([0-9]+))+)$')
+PATTERN_PLAYED = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|[\w.-]+>)\s+([0-9]+))+)$')
 PATTERN_CHARACTERS = re.compile('^characters$')
 PATTERN_ADD_CHARACTER = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
 PATTERN_ADD_PLAYER = re.compile('^add player <@\w+\|\w+>$')

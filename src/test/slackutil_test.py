@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 import os
 import unittest
 from lib.slack import util as slackutil

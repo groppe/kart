@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 import re
 import lib.webutil as webutil
 from lib.data import characters as character_data

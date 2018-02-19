@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/groppe/mario.svg?branch=development)](https://travis-ci.org/groppe/mario) [![Coverage Status](https://coveralls.io/repos/github/groppe/mario/badge.svg?branch=development)](https://coveralls.io/github/groppe/mario?branch=development)
 # Kart
-A Slack app and RESTful HTTP API that can be used to keep track of multiplayer game results. It is built using Python,runs on AWS Lambda, where it is deployed using the Serverless framework via TravisCI. The application stores player information, game scores, and calculates skill rankings.
+A Slack app and RESTful HTTP API that can be used to keep track of multiplayer game results. It is built using Python, and is deployed to AWS Lambda via Travis CI using the Serverless framework. The application stores player information, game scores, and calculates skill rankings.
 
 ## Motivation
 
@@ -15,7 +15,7 @@ These instructions will provide assistance in getting the Kart application up an
 The following dependencies are needed to run the application:
  - Python 3.6
  - Node.js 6.11.*
- - MongoDB 3.4.* database (accessible from the application, not necessarily on the same machine the app runs on)
+ - MongoDB 3.4.* (a database accessible from the application, not necessarily on the same machine)
 
 The following dependencies are needed to deploy and use the application:
  - AWS account with administrator access

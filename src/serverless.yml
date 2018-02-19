@@ -143,3 +143,11 @@ functions:
           path: api/character/{id}
           method: delete
           cors: true
+
+  get_average_ranking:
+    handler: api/ranking.average
+    events:
+      - http:
+          path: api/ranking/average
+          method: get
+          cors: true

@@ -9,7 +9,7 @@ def create(event, context):
     data = json.loads(event['body'])
 
 def all(event, context):
-    queryStringParameters = event.get('queryStringParameters', dict())
+    queryStringParameters = event.get('queryStringParameters') or {}
     size = queryStringParameters.get('size', 25)
     page = queryStringParameters.get('page', 0)
     player_id = queryStringParameters.get('player_id')

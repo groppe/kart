@@ -3,11 +3,10 @@ import json
 import logging
 from lib import webutil as webutil
 from lib.data import games as game_data
-from pymongo.json_util import dumps
+from bson.json_util import dumps
 
 def create(event, context):
     logging.critical(event)
-    data = json.loads(event['body'])
 
 def all(event, context):
     queryStringParameters = event.get('queryStringParameters') or {}

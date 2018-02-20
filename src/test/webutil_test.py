@@ -41,7 +41,7 @@ class RankTests(unittest.TestCase):
         }
 
         # Act
-        result = webutil.respond_success_json(body)
+        result = webutil.respond_success_json(json.dumps(body))
 
         # Assert
         self.assertDictEqual(expected_result, result)

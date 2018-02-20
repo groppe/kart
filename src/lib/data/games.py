@@ -1,4 +1,5 @@
 #!/usr/bin/python3.6
+import re
 from bson.objectid import ObjectId
 from lib.data.mongodb import game_collection
 
@@ -8,12 +9,13 @@ def game_by_id(game_id):
     })
     
 def games_for_player(player_id, page_size=25, skip=0):
+    player_id_regex = re.compile('^' + player_id)
     return game_collection.aggregate([
         {
             "$match": {
                 "scores": {
                     "$elemMatch": {
-                        "player_id": player_id
+                        "player_id": player_id_regex
                     }
                 }
             }
@@ -32,11 +34,12 @@ def games_for_player(player_id, page_size=25, skip=0):
         {
             "$project": {
                 "games": 1,
+                "datetime": 1,
                 "scores": {
                     "$filter": {
                         "input": '$scores',
                         "as": 'score',
-                        "cond": {'$eq': ['$$score.player_id', player_id]}
+                        "cond": {'$match': ['$$score.player_id', player_id_regex]}
                     }
                 }
             }

@@ -15,6 +15,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': message
         }

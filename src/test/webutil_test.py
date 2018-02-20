@@ -36,6 +36,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': json.dumps(body)
         }
@@ -54,6 +55,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 500,
             'headers': {
                 'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': message
         }
@@ -72,6 +74,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 401,
             'headers': {
                 'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': message
         }

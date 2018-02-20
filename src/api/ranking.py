@@ -8,4 +8,4 @@ def average(event, context):
     ranking_average = {
         'rankings': rank.average_individual()
     }
-    return webutil.respond_success_json(ranking_average)
+    return webutil.respond_success_json(json.dumps(ranking_average))

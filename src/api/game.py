@@ -25,7 +25,7 @@ def all(event, context):
     player_id = queryStringParameters.get('player_id')
 
     if not player_id:
-        any_player = re.compile('^*')
+        any_player = re.compile('^.*')
         games = game_data.games_for_player(any_player, size, page)
     else:
         games = game_data.games_for_player(player_id, size, page)

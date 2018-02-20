@@ -19,6 +19,7 @@ jobs:
         - python -m coverage run -m unittest discover -p "*_test.py"
         - coveralls
     - stage: deploy to Development
+      if: branch = development OR type pull_request
       env:
         - DEPLOY_ENV=dev
         - secure: "azA1ySXPuGfcMcNaofQlHSgKSmA6lBPyTTHlwsA6RGv4L2s2juHM7NeyoskU2oaejtiCP/Pv8OTuM2DMZ5n/tcpdh2Uo77Zu/LbCm5DVklYez9U1N32nv9xm+E8UJlVZ3Gv5Q8CbxoPDr3SQGZaPkdxdbk8BVsYrjlVgdTFaT61/AK2LQXyfhPXtgnctm8QlPXkpBQiW2XQAl2w9XallyWN3+lt1QWGkB5veZLjZAJRC/dWhR1Z/mxyEKA289bXAkCy7VX+3/1p5ZCxcjNvscszmxX9MszfxVec0HyQXLJt9F6ImwLJ61NM4zQEoNGoPQeRbc0zR8NfZcBUlkcMCnSiQBE5yccNnZDusFlPes2PbwSs5Vav/HaPe2L9PT8nZzyzKPiulMK4FAXh27hY91b+/6AFPtPdETt4Vi8KUIU6jPE+1kti1UdyheVJfb594eMj0THqtF31wcJckJUMe75SVAb1ZorS1TMR9l9A71fRa9d6DkOL/29mHqAfWi9tusGb5cj7xFl6b3L1Jk1hrTofgahO75lOVdeQhkuWVbWixoIeEdqOOKfYWCAkGAIuDfeAAZnvm6bU7+8SR2AxDJRdVQyoiMHXROeXs3CeslsWNExgraErzReAQmxDdAndI9e2tn08HRav7lg5GD2RiddJ8pu2XvbkDEwd1l+25tF0="
@@ -32,6 +33,7 @@ jobs:
         - sls plugin install -n serverless-python-requirements
         - sls deploy
     - stage: deploy to Production
+      if: branch = master AND type NOT pull_request
       env:
         - DEPLOY_ENV=prod
         - secure: "Fjuwf9GTw6pAV8VewVjExdyahdnfTqVkhCpt2wHycuJU5wOCyq1B35xk1SBcr5MViuuf+eCte3rjCObT+z4um3akJ8bZNNJ7JPO4nxcnpgsm5JLyMD6wSXCejgjhs/swkeW4qwj07zFUH539mPhUmW3GxT/Y0nr2eaoLwv0U15CWbuqwPWhML7YPEZv+h2CqjHjNTMXCrCv6wB47lbgcf49DkIXontgKV+gEggAmrrQ4T7QG6XLStUpUC/Zn13jonANG3MGXrXxlA45VCeo6fhWtgR4Ots5bK6UsiswzyOdJ0ZWcCjY7kzO9QJFZrgQJ31/GM8hXtGYfCEWUlcdRc+nQ0yb+5FWX0x/0Vk0DNzjtCl1qPzOGtqT32/Ru1zSFeRUWAJBgFxs9c7m0IGDTrdKAfueC+JTNAOxUvv28FL2ZVFGti9jln2vtd0R05g6OpobvfWUo/YKOK5KcrQ84Q+ikk9HhGDzMp/ZcItjUoOJgEJZVSuKtH9ArRavnDop04HdcBXggBiQW/jouJ5vqj5HOWhzpq5YB5Qt/SoRVe2zPkU8JgvBGAqfGgjt2sLOrIHV2gonZpyEhamwFVN7HyrhDxEhOe83+5b68b+uQtJG9wQBQeQUrcRX/ZQCVTuvVvNUPbXdUJw2lEm13Hl83WhBOvvRHmx+RFwBE+gqCYwc="

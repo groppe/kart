@@ -1,6 +1,7 @@
 #!/usr/bin/python3.6
 import json
 import logging
+import re
 from lib import webutil as webutil
 from lib.data import games as game_data
 from bson.json_util import dumps
@@ -21,9 +22,13 @@ def all(event, context):
     queryStringParameters = event.get('queryStringParameters') or {}
     size = queryStringParameters.get('size') or 25
     page = queryStringParameters.get('page') or 0
-    player_id = queryStringParameters.get('player_id') or '*'
+    player_id = queryStringParameters.get('player_id')
 
-    games = game_data.games_for_player(player_id, size, page)
+    if not player_id:
+        any_player = re.compile('^*')
+        games = game_data.games_for_player(any_player, size, page)
+    else:
+        games = game_data.games_for_player(player_id, size, page)
 
     response = {
         'games': list(games),

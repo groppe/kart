@@ -1,4 +1,5 @@
 #!/usr/bin/python3.6
+import json
 import re
 import lib.webutil as webutil
 import lib.slack.util as slackutil
@@ -13,7 +14,9 @@ def handle(command_text):
 
     index_of_new_player = determine_players_index()
     player_data.add_player_with_id(new_player_id, index_of_new_player)
-    return webutil.respond_success_json(slackutil.in_channel_response('Alright, <@' + new_player_id + '> is ready to play!'))
+
+    slack_response = slackutil.in_channel_response('Alright, <@' + new_player_id + '> is ready to play!')
+    return webutil.respond_success_json(json.dumps(slack_response))
 
 
 def split_add_player_string(command_string_components):

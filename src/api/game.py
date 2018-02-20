@@ -3,6 +3,7 @@ import json
 import logging
 from lib import webutil as webutil
 from lib.data import games as game_data
+from pymongo.json_util import dumps
 
 def create(event, context):
     logging.critical(event)
@@ -26,7 +27,7 @@ def all(event, context):
         'size': size,
         'page': page
     }
-    return webutil.respond_success_json(json.dumps(response))
+    return webutil.respond_success_json(dumps(response))
 
 def get(event, context):
     game_id = event['pathParameters']['id']

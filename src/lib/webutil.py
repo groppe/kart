@@ -22,7 +22,7 @@ def respond_success_json(body):
         'headers': {
             'Content-Type': 'application/json',
         },
-        'body': json.dumps(body)
+        'body': body
     }
 
 

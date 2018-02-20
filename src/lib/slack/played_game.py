@@ -1,4 +1,5 @@
 #!/usr/bin/python3.6
+import json
 import re
 import time
 import lib.slack.util as slackutil
@@ -41,7 +42,7 @@ def handle(command_text):
         response_text += ': ' + str(score['average'])
 
     slack_body = slackutil.in_channel_response(response_text)
-    return webutil.respond_success_json(slack_body)
+    return webutil.respond_success_json(json.dumps(slack_body))
 
 
 def trim_extra_whitespace(text):

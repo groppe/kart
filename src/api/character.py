@@ -1,6 +1,7 @@
 #!/usr/bin/python3.6
 import json
 import logging
+from bson.json_util import dumps
 from lib import webutil as webutil
 from lib.data import characters as character_data
 
@@ -11,7 +12,7 @@ def create(event, context):
 def all(event, context):
     logging.critical(event)
     all_characters = character_data.all_characters()
-    return webutil.respond_success_json(json.dumps(list(all_characters)))
+    return webutil.respond_success_json(dumps(all_characters))
 
 def get(event, context):
     logging.critical(event)

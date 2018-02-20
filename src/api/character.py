@@ -12,7 +12,10 @@ def create(event, context):
 def all(event, context):
     logging.critical(event)
     all_characters = character_data.all_characters()
-    return webutil.respond_success_json(dumps(all_characters))
+    response = {
+        'characters': all_characters
+    }
+    return webutil.respond_success_json(dumps(response))
 
 def get(event, context):
     logging.critical(event)

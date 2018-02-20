@@ -30,19 +30,6 @@ def games_for_player(player_id, page_size=25, skip=0):
         },
         {
             "$limit": page_size
-        },
-        {
-            "$project": {
-                "games": 1,
-                "datetime": 1,
-                "scores": {
-                    "$filter": {
-                        "input": '$scores',
-                        "as": 'score',
-                        "cond": {'$eq': ['$$score.player_id', player_id_regex]}
-                    }
-                }
-            }
         }
     ])
 

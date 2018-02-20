@@ -11,6 +11,7 @@ def respond_success(message):
         'statusCode': 200,
         'headers': {
             'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': message
     }
@@ -21,6 +22,7 @@ def respond_success_json(body):
         'statusCode': 200,
         'headers': {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': body
     }
@@ -31,6 +33,7 @@ def respond_server_error(message):
         'statusCode': 500,
         'headers': {
             'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': message
     }
@@ -41,6 +44,7 @@ def respond_unauthorized(message):
         'statusCode': 401,
         'headers': {
             'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': message
     }
@@ -51,6 +55,7 @@ def respond_bad_request(message):
         'statusCode': 400,
         'headers': {
             'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': message
     }
@@ -61,6 +66,7 @@ def respond_conflict(message):
         'statusCode': 409,
         'headers': {
             'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': message
     }
@@ -71,6 +77,7 @@ def respond_not_found(message):
         'statusCode': 404,
         'headers': {
             'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*'
         },
         'body': message
     }

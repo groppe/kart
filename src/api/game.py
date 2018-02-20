@@ -20,8 +20,8 @@ def create(event, context):
 
 def all(event, context):
     queryStringParameters = event.get('queryStringParameters') or {}
-    size = queryStringParameters.get('size') or 25
-    page = queryStringParameters.get('page') or 0
+    size = int(queryStringParameters.get('size') or 25)
+    page = int(queryStringParameters.get('page') or 0)
     player_id = queryStringParameters.get('player_id')
 
     if not player_id:

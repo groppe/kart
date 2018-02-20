@@ -39,7 +39,7 @@ def games_for_player(player_id, page_size=25, skip=0):
                     "$filter": {
                         "input": '$scores',
                         "as": 'score',
-                        "cond": {'$match': ['$$score.player_id', player_id_regex]}
+                        "cond": {'$regex': ['$$score.player_id', player_id_regex]}
                     }
                 }
             }

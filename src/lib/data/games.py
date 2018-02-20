@@ -6,11 +6,8 @@ def game_by_id(game_id):
     return game_collection.find({
         '_id': ObjectId(game_id)
     })
-
-def games_in_range(criteria, page_size, index):
-    return game_collection.find(criteria).skip(index * page_size).limit(page_size)
     
-def games_for_player(player_id, number_of_games=25):
+def games_for_player(player_id, page_size=25, skip=0):
     return game_collection.aggregate([
         {
             "$match": {
@@ -26,8 +23,11 @@ def games_for_player(player_id, number_of_games=25):
                 "datetime": -1
             }
         },
+        { 
+            "$skip": skip
+        },
         {
-            "$limit": number_of_games
+            "$limit": page_size
         },
         {
             "$project": {

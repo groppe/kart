@@ -19,15 +19,11 @@ def create(event, context):
 
 def all(event, context):
     queryStringParameters = event.get('queryStringParameters') or {}
-    size = queryStringParameters.get('size', 25)
-    page = queryStringParameters.get('page', 0)
-    player_id = queryStringParameters.get('player_id')
+    size = queryStringParameters.get('size') or 25
+    page = queryStringParameters.get('page') or 0
+    player_id = queryStringParameters.get('player_id') or '*'
 
-    query_criteria = {}
-    if player_id is not None:
-        query_criteria['player_id'] = player_id
-
-    games = game_data.games_in_range(query_criteria, size, page)
+    games = game_data.games_for_player(player_id, size, page)
 
     response = {
         'games': list(games),

@@ -12,7 +12,7 @@ def average_individual():
     rankings = instantiate_empty_array()
 
     for player in player_data.all_players():
-        games = game_data.games_for_player(player['_id'], 25)
+        games = game_data.games_for_player(player['_id'], 25, 0)
         score = calculate_average_score_for_player(games)
         player_entry = create_player_entry(player, score)
         rankings.append(player_entry)

@@ -35,6 +35,7 @@ jobs:
         - sls plugin install -n serverless-python-requirements
         - sls deploy
         - pip install awscli
+        - npm install -g @angular/cli
         - cd ../client
         - ng build --dev
         - aws s3 sync dist/ s3://dev.kartskills.com

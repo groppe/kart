@@ -37,6 +37,7 @@ jobs:
         - pip install awscli
         - npm install -g @angular/cli
         - cd ../client
+        - npm install
         - ng build --dev
         - aws s3 sync dist/ s3://dev.kartskills.com
     - stage: deploy to Production

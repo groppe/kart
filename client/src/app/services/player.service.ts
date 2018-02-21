@@ -5,7 +5,6 @@ import 'rxjs/add/operator/toPromise';
 
 import { environment } from '../../environments/environment';
 import { Player } from '../entities/player';
-import { PlayerResult } from '../entities/player-result';
 
 
 @Injectable()
@@ -14,9 +13,9 @@ export class PlayerService {
   constructor (private http: Http) { }
 
   getPlayers(): Promise<Player[]> {
-    return this.http.get(environment.WEB_API_ENDPOINT + '/bigboard')
+    return this.http.get(environment.WEB_API_ENDPOINT + '/ranking/average')
       .toPromise()
-      .then(response => response.json() as Player[])
+      .then(response => response.json().rankings as Player[])
       .catch(this.handleError);
   }
 
@@ -28,16 +27,8 @@ export class PlayerService {
       .catch(this.handleError);
   }
 
-  getResults(id: string): Promise<PlayerResult[]> {
-    const url = `${environment.WEB_API_ENDPOINT}/player/${id}/results`;
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json() as PlayerResult[])
-      .catch(this.handleError);
-  }
-
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // demo purposes only
+    console.error('An error occurred', error.json()); // demo purposes only
     return Promise.reject(error.message || error);
   }
 }

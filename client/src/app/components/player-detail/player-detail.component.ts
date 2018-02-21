@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 
 import { Player } from '../../entities/player';
-import { PlayerResult } from '../../entities/player-result';
 import { Game } from '../../entities/game';
 
 import { PlayerService } from '../../services/player.service';
@@ -22,7 +21,7 @@ import { GameService } from '../../services/game.service';
 
 export class PlayerDetailComponent implements OnInit, OnChanges {
   @Input() player: Player;
-  @Input() results: PlayerResult[];
+  @Input() results: Game[];
   @Input() gameDetail: Game;
   @Output() onCloseDetail: EventEmitter<any> = new EventEmitter();
 
@@ -38,19 +37,26 @@ export class PlayerDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.playerService.getResults(this.player.id)
+    this.gameService.getGames(this.player.id)
       .then(playerResults => this.results = playerResults);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.setTop();
-    this.playerService.getResults(this.player.id)
+    this.gameService.getGames(this.player.id)
       .then(playerResults => this.results = playerResults);
   }
 
   onSelect(gameId: string): void {
     this.gameService.getGame(gameId)
-      .then(game => this.gameDetail = game)
+      .then(game => {
+        this.gameDetail = game;
+        for (const player of this.gameDetail[0].scores) {
+          this.playerService.getPlayer(player.player_id)
+            .then(playerData => this.gameDetail[0].scores.name = playerData.name)
+            .catch(this.handleError);
+        }
+      } )
       .catch(this.handleError);
   }
 

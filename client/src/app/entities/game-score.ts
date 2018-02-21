@@ -1,5 +1,5 @@
 export class GameScore {
   player_id: string;
-  name: string;
+  score: Number;
   average: Number;
 }

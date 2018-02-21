@@ -13,10 +13,10 @@
     <h3>Last 25 Results</h3>
     <table>
       <a *ngFor="let result of results | slice:0:25"
-         (click)="onSelect(result.id)"
+         (click)="onSelect(result._id.$oid)"
           class="light-blue-hover table-row">
-        <td><time>{{result.date | date:'MMM d, EEE'}}</time></td>
-        <td>{{result.average}}</td>
+        <td><time>{{result.datetime | date:'MMM d, EEE'}}</time></td>
+        <td>{{result.scores[0].average}}</td>
       </a>
     </table>
     <h3>Recently Dropped</h3>
@@ -25,7 +25,7 @@
          (click)="onSelect(result.id)"
          class="light-blue-hover table-row">
         <td><time>{{result.date | date:'MMM d, EEE'}}</time></td>
-        <td>{{result.average}}</td>
+        <td>{{result.scores[0].average}}</td>
       </a>
     </table>
   </div>
@@ -37,11 +37,11 @@
          class="game-popup rounded-blk-border">
       <a (click)="closeOverlay()"
          class="close-details fade">&times;</a>
-      <h3 class="yellow"><time>{{gameDetail.datetime | date:'MMM d, EEE'}}</time></h3>
-      <h5 class="yellow"><time>{{gameDetail.datetime | date:'shortTime'}}</time></h5>
-      <h4 class="yellow">{{gameDetail.games}} Games</h4>
+      <h3 class="yellow"><time>{{gameDetail[0].datetime | date:'MMM d, EEE'}}</time></h3>
+      <h5 class="yellow"><time>{{gameDetail[0].datetime | date:'shortTime'}}</time></h5>
+      <h4 class="yellow">{{gameDetail[0].games}} Games</h4>
       <div class="scores">
-        <div *ngFor="let score of gameDetail.scores" class="flex">
+        <div *ngFor="let score of gameDetail[0].scores" class="flex">
           <p>{{score.name}}</p>
           <p>{{score.average}}</p>
         </div>

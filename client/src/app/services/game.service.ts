@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 import { Game } from '../entities/game';
 
+
 @Injectable()
 export class GameService {
 
@@ -16,6 +17,14 @@ export class GameService {
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as Game)
+      .catch(this.handleError);
+  }
+
+  getGames(id: string): Promise<Game[]> {
+    const url = `${environment.WEB_API_ENDPOINT}/game?player_id=${id}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().games as Game[])
       .catch(this.handleError);
   }
 

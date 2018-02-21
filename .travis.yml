@@ -39,7 +39,7 @@ jobs:
         - cd ../client
         - npm install
         - ng build --dev
-        - aws s3 sync dist/ s3://dev.kartskills.com --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+        - aws s3 sync dist/ s3://dev.kartskills.com --acl public-read
     - stage: deploy to Production
       if: branch = master
       env:

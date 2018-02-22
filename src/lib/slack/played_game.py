@@ -37,7 +37,7 @@ def handle(command_text):
 
     response_text = 'A game of *' + str(game.get('games')) + '* races was played! Average scores:'
     for score in scores:
-        player_cursor = player_data.get_player(score['player_id'])
+        player_cursor = player_data.get_player(score['player_id']) or {}
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
         response_text += ': ' + str(score['average'])
 
@@ -54,7 +54,7 @@ def parse_results(text):
 
 
 def parse_race_count(text):
-    return int(text.split(' ')[1], 0)
+    return int(text.split(' ')[1])
     
 
 

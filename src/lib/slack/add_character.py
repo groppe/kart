@@ -1,4 +1,5 @@
 #!/usr/bin/python3.6
+import json
 import re
 import lib.webutil as webutil
 import lib.slack.util as slackutil
@@ -18,4 +19,4 @@ def handle(command_text):
     }
     character_data.add_character(new_character)
     slack_body = slackutil.in_channel_response('Successfully added \"' + character_name + '\" as a character.')
-    return webutil.respond_success_json(slack_body)
+    return webutil.respond_success_json(json.dumps(slack_body))

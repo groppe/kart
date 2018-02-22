@@ -15,6 +15,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': message
         }
@@ -36,12 +37,13 @@ class RankTests(unittest.TestCase):
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': json.dumps(body)
         }
 
         # Act
-        result = webutil.respond_success_json(body)
+        result = webutil.respond_success_json(json.dumps(body))
 
         # Assert
         self.assertDictEqual(expected_result, result)
@@ -54,6 +56,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 500,
             'headers': {
                 'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': message
         }
@@ -72,6 +75,7 @@ class RankTests(unittest.TestCase):
             'statusCode': 401,
             'headers': {
                 'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*'
             },
             'body': message
         }

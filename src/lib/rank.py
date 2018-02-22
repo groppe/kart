@@ -12,8 +12,8 @@ def average_individual():
     rankings = instantiate_empty_array()
 
     for player in player_data.all_players():
-        games = game_data.games_for_player(player['_id'], 25)
-        score = calculate_average_score_for_player(games)
+        games = game_data.games_for_player(player['_id'], 25, 0)
+        score = calculate_average_score_for_player(games, player['_id'])
         player_entry = create_player_entry(player, score)
         rankings.append(player_entry)
 
@@ -28,12 +28,12 @@ def instantiate_empty_array():
     return []
 
 
-def calculate_average_score_for_player(games):
+def calculate_average_score_for_player(games, player_id):
     games_played = 0
     total_score = 0.0
 
     for game in games:
-        score_entry = get_player_score_entry(game)
+        score_entry = get_player_score_entry(game, player_id)
         games_played += get_number_of_games_played(game)
         total_score += get_player_score(score_entry)
 
@@ -41,8 +41,8 @@ def calculate_average_score_for_player(games):
     return round(average, 2)
 
 
-def get_player_score_entry(game):
-    return game['scores'][0]
+def get_player_score_entry(game, player_id):
+    return next(filter(lambda s: s['player_id'] == player_id, game['scores']))
 
 
 def get_player_score(score_entry):

@@ -1,6 +1,6 @@
 #!/usr/bin/python3.6
+import json
 import prettytable
-
 import lib.rank as ranking
 import lib.slack.util as slackutil
 import lib.webutil as webutil
@@ -21,4 +21,4 @@ def handle():
     table_string = '```' + table.get_string(border=True) + '```'
     slack_response = slackutil.in_channel_response(table_string)
 
-    return webutil.respond_success_json(slack_response)
+    return webutil.respond_success_json(json.dumps(slack_response))

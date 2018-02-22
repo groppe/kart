@@ -20,9 +20,10 @@ class RankTests(unittest.TestCase):
 
         # Arrange
         games = []
+        player_id = ''
 
         # Act
-        result = rank.calculate_average_score_for_player(games)
+        result = rank.calculate_average_score_for_player(games, player_id)
 
         # Assert
         self.assertEqual(result, 0)
@@ -30,11 +31,13 @@ class RankTests(unittest.TestCase):
     def testCalculateAverageScoreForPlayer_WhenOneGame_AverageIsGameScore(self):
 
         # Arrange
+        player_id = 'U1'
         games = [
             {
                 'games': 5,
                 'scores': [
                     {
+                        'player_id': player_id,
                         'score': "75"
                     }
                 ]
@@ -42,7 +45,7 @@ class RankTests(unittest.TestCase):
         ]
 
         # Act
-        result = rank.calculate_average_score_for_player(games)
+        result = rank.calculate_average_score_for_player(games, player_id)
 
         # Assert
         self.assertEqual(result, 15)
@@ -50,11 +53,13 @@ class RankTests(unittest.TestCase):
     def testCalculateAverageScoreForPlayer_WhenMultipleGames_AverageIsCalculated(self):
 
         # Arrange
+        player_id = 'U1'
         games = [
             {
                 'games': 5,
                 'scores': [
                     {
+                        'player_id': player_id,
                         'score': "75"
                     }
                 ]
@@ -63,6 +68,7 @@ class RankTests(unittest.TestCase):
                 'games': 5,
                 'scores': [
                     {
+                        'player_id': player_id,
                         'score': "65"
                     }
                 ]
@@ -71,6 +77,7 @@ class RankTests(unittest.TestCase):
                 'games': 5,
                 'scores': [
                     {
+                        'player_id': player_id,
                         'score': "60"
                     }
                 ]
@@ -78,7 +85,7 @@ class RankTests(unittest.TestCase):
         ]
 
         # Act
-        result = rank.calculate_average_score_for_player(games)
+        result = rank.calculate_average_score_for_player(games, player_id)
 
         # Assert
         self.assertEqual(result, 13.33)
@@ -86,15 +93,26 @@ class RankTests(unittest.TestCase):
     def testGetPlayerScoreEntry(self):
 
         # Arrange
+        player_id = 'U1'
+        player_score_entry = {
+            'player_id': player_id,
+            'score': "75"
+        }
         game = {
-            'scores': [4]
+            'scores': [
+                player_score_entry,
+                {
+                    'player_id': 'U2',
+                    'score': "70"
+                }
+            ]
         }
 
         # Act
-        result = rank.get_player_score_entry(game)
+        result = rank.get_player_score_entry(game, player_id)
 
         # Assert
-        self.assertEqual(result, 4)
+        self.assertDictEqual(result, player_score_entry)
 
     def testGetNumberOfGamesPlayed(self):
 

@@ -21,7 +21,7 @@ jobs:
         - secure: "GrDgKW3os/YV/GNHie4xwalUI2ZaqS+H/JQDfPrjEqTS++EbFBUQBkM/9JKPnZg4AdugV5DmtW+CEIH76fdZqLzBXvkpWdBvXKGanTwkuIxxcKqabjZuFiO3xMwi5pLsE4yrNEALqRGCAeTb06A5nDtq2X5QmIxK94OtxvkEZkTo9avOqAdWnJcY2dxg4iXgyH1eCLKGjBglDQRNTolp2SH/Ypkl2oIehL+vpCzwBxAtHUL7SEsMNi7av4zOsjXRuI62UZrh9XN+aWsNW8h5GwNbqCs4s2EpS1GH/xS+qOZM57hP4dMKw/HCu69huKvefieIVoyQeLI+l0dG0S81RC/eyUozO099jIcDY6PXz2+h3Q8rIZlqU8jgNCQofk/gcEPVi05+gXKJX0/YNmQZB9DWITNjBuUO69nxgJECdACZe64w4du6XIBPNHrwBPEA050mCbjIfbYKXWh4NCYHeTAjQC2YZe/RDabFVu2FkcEMxIxw7JRSbXRHH2SKi1gepaI4l5vHPbIEGKQSBK+fY/emNLpE+aAgWDe/H+lB6d2J9t6x6eGK1tQO4+RXhtBOMzGMtSbn2MRDD5attcvv4lAwQ8+EsgiwpnJoWY7c6GwA9QwA6Q9NywF0gKOdwnsXrqNTn8pBf7VQPb/Ov+CsywoEJ6Q43z7d7W5m+ENzmvQ="
         - secure: "VUkRzTlhzrf4hbylbTUdjBjtMx9EyxVjH83ZmMbBcYgJQ0Ixm0q1xQAnSwYUF+1xHszffB7355f0YuJTtpbG8uzSVDCeT/ME97tUEm60ngqdbuf4Fs04d0Sz0hB1Tvp5K1vh1hskXgMx9YkI1o+uUFAgr0CM+5tkBK92Rt6Epf0QkPhkOx9y+vk+qC503DwbbJuDHPlPDQp+ZbwISVrT9LwFV0YctIwK7rJwpMJXD4K4b4fghDdr1jYApgC0/V7xXOsXRfasQS35xfy4ZphdIF9LmsjMxxp7/tTvskO1lFjGa7z5P9yegznM8y7huOU1oeYswp+8iKY89N3+z5DtXmqAViqRP9E6JfsIlfnsS/u4lqFu9fUK6Gjxq2loZWNGirW+cMjHmwEX/uFdrpXt6Mkftqo+FxiZs89K4ly7m1Pl4DSs3qD8fjNLccaMNPevU5nT0V1M3C1IaGRY+iI2E5Pop8sYNSCxKkpAAjCPmLAhTo0B2svlRhnhftxQ+1qb2YZQdGooMlC+T2tCrI9JjNKbEdaX3qnwixYFTrCGUbBeWziklqnqLPsGTz2LD63gDbFlFF8HHbLh3birrxgo4Z9w14exa4Z6uTqMo38EAxRiYdykxKm56I2L7cJB5nt2Cx9ocel9Uap7RotO5NiloCRFN8ynji5LSl/iXd9dlZw="
       install: bash build/install_dependencies.sh
-      script: sls deploy
+      script: bash build/deploy.sh
     - stage: deploy to Production
       if: branch = master AND type != pull_request
       env:
@@ -30,7 +30,7 @@ jobs:
         - secure: "NW3QfM4ZNHVL74tgnfZ+c74uPB+TcfOZLbRi0amyQk61nF0rvJ5wVgpFctlL+XdHpjJtqQMhxBqr/vQOkZAkkrGVe07bI7MOhYKN7mFKJjFug/Ll622qAx5CJxZUjIk9iJk/fGEndRMdri7v6+ttg1Y+8IJagg1ZpC3hiKBDlPgaaV3W1a+SOq2tqGcO2Y1bXBM5K8MszumF4K01j+0PjTsu6h2AUrifSinrW99oyp4/6+VeHDniPKTursRmwn9pXp1kO0ItyNpErUlS3dlr9LJQOY6dzmk0QFd1WjpXT/3Zjq5FHhhxjF09nMreYQbyCniG55IucifKriCxJ9dznARpFf6QuPkeauGeP7a+qMV2frfUlRnKf71UgDN4I6a2DYMXMcKXgCMsYwIf/1qXQC/O2P9oPXrUV01dZ0qp9LyTuFA6e45xE+et9stCAEy4iT1UimXn/Wv1BqKBpgo7riHMJp+mI8r4HjB14UjAMQJLll4q4fs4pinmqu1ug7dO5nKKiiHV8a/C3Z5TDNAlRKVZUN08TefSX0aW5fjG+qh7d7E/S8mgmMP7g1f8Orr6UNquhZRb6DIhiLpMdwTThnETkaPMlCBI2SWIHYkI5plUdADU1OsinWHWxjRzLc0ScuPrgKcrGNIrqBI22tXoKX06PTMQTy2iEktmVJec0E4="
         - secure: "FPU96vaW33O+X+aRUKkXBVE8Zfs5qG2pp/iacFQ6g1S7wg7hHzD8kQtWC2jFGHIzowc6k1fgEwN06754ey0HZ2ywhwA3ROFIV7+BApR1PMPIc8v6QBqo94yHLErDzJqj/YKFNU7240+K+n9gIXKFaN3WgeZxRh2bTTq5iI+hQ6J4AJZ5Q+zqDTxgOJOLTRH+FkG/mZyWcw4bcsr9BkOLvuDaud774CfyFijeTl8MnNTHbV8bAMUGyOAVidS+bMqZpUh0MBooPmZLIFsK9g734d2dIWiMS5lS4+4x7Fj7Hml5bpOIXTv6pskMz/cYHMlAX6IxIJsjzPR3Jr+hLYroNISjWUlrCtRJo7F5Rn221tHl8hSm7kXRi1udmrKcMpaoh9Y71BbjYDdUcgP9+iYNN8pRy1nE/62XIF+rJEpj6Qn8EG7b/c13oSubzDTqIONiyCCdOJIiurU9MQz/DOIl4Mbv+iB6RtqPqBBsFTNQ8cjLXi8+mUnxXcJR0k+iTNf7wskh5uFZBE5ydhipIEqyx+W4re0uqWuZy6fjRk8URXZz27dRITJIbYURztbl0cpju2eOUczdGlu/6HBzu2uTi3R0NQRgvvktq0o9Y4nJhZZ3lG4Zm8XRp85eCHdwSDh9oekGz92aYt1988WR9KEpKGHP1RFCQAI8yQ/NnCZezh4="
       install: bash build/install_dependencies.sh
-      script: sls deploy
+      script: bash build/deploy.sh
 stages:
   - name: unit test
   - name: deploy to Development

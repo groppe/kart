@@ -21,7 +21,7 @@ export class GameService {
   }
 
   getGames(id: string): Promise<Game[]> {
-    const url = `${environment.WEB_API_ENDPOINT}/game?player_id=${id}`;
+    const url = `${environment.WEB_API_ENDPOINT}/game?player_id=${id}&size=30`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().games as Game[])

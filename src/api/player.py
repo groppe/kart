@@ -44,7 +44,7 @@ def all(event, context):
     response = {
         'players': list(all_players)
     }
-    return webutil.respond_success_json(response)
+    return webutil.respond_success_json(json.dumps(response))
 
 def get(event, context):
     logging.critical(event)
@@ -54,7 +54,7 @@ def get(event, context):
     if player is None:
         return webutil.respond_not_found('a player with that Slack id does not exist')
     
-    return webutil.respond_success_json(player)
+    return webutil.respond_success_json(json.dumps(player))
 
 def update(event, context):
     logging.critical(event)

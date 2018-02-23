@@ -1,5 +1,5 @@
 #!/usr/bin/python3.6
-import lib.webutil as webutil
+import lib.common.web as webutil
 
 
 def handle():

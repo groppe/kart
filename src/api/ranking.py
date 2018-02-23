@@ -1,9 +1,11 @@
 #!/usr/bin/python3.6
 import json
+import lib.common.web as webutil
 import logging
 from lib import rank
-from lib import webutil
 
+
+@webutil.log_event
 def average(event, context):
     ranking_average = {
         'rankings': rank.average_individual()

@@ -1,9 +1,9 @@
 #!/usr/bin/python3.6
 import json
+import lib.common.web as webutil
+import lib.common.slack as slackutil
 import re
 import time
-import lib.slack.util as slackutil
-from lib import webutil
 from lib.data import games as game_data
 from lib.data import players as player_data
 

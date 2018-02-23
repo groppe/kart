@@ -10,8 +10,8 @@ import lib.slack.played_game as played_game
 import lib.slack.rankings as rankings
 import lib.slack.set_character as set_character
 import lib.slack.set_name as set_name
-import lib.slack.util as slackutil
-import lib.webutil as webutil
+import lib.common.slack as slackutil
+import lib.common.web as webutil
 
 # compile regular expressions for slash command parameter strings
 PATTERN_HELP = re.compile('^help$')
@@ -23,18 +23,14 @@ PATTERN_ADD_PLAYER = re.compile('^add player <@\w+\|\w+>$')
 PATTERN_SET_NAME = re.compile('^my name is \".*\"$')
 PATTERN_SET_CHARACTER = re.compile('^my character is \".*\"$')
 
-
-def handle(event, context):
-    input_data = slackutil.parse_input(event['body'])
-
-    logging.critical(event)
-    logging.critical(json.dumps(input_data))
-
-    if slackutil.validate_slack_token(input_data) is False:
+@webutil.log_event
+@slackutil.parse_and_log_slack_body
+def handle(slack_request):
+    if slackutil.validate_slack_token(slack_request) is False:
         return webutil.respond_unauthorized("Invalid Slack token")
 
-    command_text = input_data.get('text', '')
-    username = input_data.get('user_id', '')
+    command_text = slack_request.get('text', '')
+    username = slack_request.get('user_id', '')
 
     if PATTERN_RANKING.match(command_text):
         return rankings.handle()

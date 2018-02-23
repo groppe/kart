@@ -2,8 +2,8 @@
 import json
 import prettytable
 import lib.rank as ranking
-import lib.slack.util as slackutil
-import lib.webutil as webutil
+import lib.common.web as webutil
+import lib.common.slack as slackutil
 
 
 def handle():

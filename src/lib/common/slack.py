@@ -19,7 +19,7 @@ def parse_and_log_slack_body(func):
         event = args[0]
         slack_request = parse_input(event['body'])
         logging.critical(json.dumps(slack_request))
-        return func(*args, **kwargs)
+        return func(slack_request)
     return wrapper
 
 

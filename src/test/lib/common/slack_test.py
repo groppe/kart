@@ -1,7 +1,7 @@
 #!/usr/bin/python3.6
 import os
 import unittest
-from lib.slack import util as slackutil
+from lib.common import slack as slackutil
 
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 

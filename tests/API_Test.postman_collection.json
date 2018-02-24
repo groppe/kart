@@ -344,14 +344,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}{{environment}}/api/game/",
+							"raw": "{{url}}{{environment}}/api/game/{{$guid}}",
 							"host": [
 								"{{url}}{{environment}}"
 							],
 							"path": [
 								"api",
 								"game",
-								""
+								"{{$guid}}"
 							]
 						},
 						"description": null

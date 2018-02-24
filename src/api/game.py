@@ -8,14 +8,7 @@ from bson.json_util import dumps
 
 @webutil.log_event
 def create(event, context):
-    request_body = webutil.parse_event_for_request_body(event)
-    if not request_body:
-        return webutil.respond_bad_request('to add a game, include the number of games and at least two players')
-
-    request_data = json.loads(request_body)
-    slack_id = request_data.get('slack_id', None)
-    if not slack_id:
-        return webutil.respond_bad_request('to create a player, include at least their Slack id')
+    return webutil.respond_not_implemented()
 
 
 @webutil.log_event
@@ -52,8 +45,10 @@ def get(event, context):
 
 @webutil.log_event
 def update(event, context):
-    data = json.loads(event['body'])
+    return webutil.respond_not_implemented()
 
+
+@webutil.log_event
 def delete(event, context):
     game_id = event['pathParameters']['id']
     if not game_data.game_by_id(game_id):

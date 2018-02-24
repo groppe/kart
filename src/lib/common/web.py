@@ -92,3 +92,17 @@ def respond_not_found(message):
         },
         'body': message
     }
+
+
+def respond_not_implemented():
+    not_implemented = {
+        'message': 'this method has not been implemented yet'
+    }
+    return {
+        'statusCode': 501,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': json.dumps(not_implemented)
+    }

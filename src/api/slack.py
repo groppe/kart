@@ -8,6 +8,7 @@ import lib.slack.characters as characters
 import lib.slack.help as helper
 import lib.slack.played_game as played_game
 import lib.slack.rankings as rankings
+import lib.slack.skill_rankings as skill_rankings
 import lib.slack.set_character as set_character
 import lib.slack.set_name as set_name
 import lib.common.slack as slackutil
@@ -15,7 +16,8 @@ import lib.common.web as webutil
 
 # compile regular expressions for slash command parameter strings
 PATTERN_HELP = re.compile('^help$')
-PATTERN_RANKING = re.compile('^rankings$')
+PATTERN_RANKING = re.compile('^average ranking$')
+PATTERN_SKILL= re.compile('^skill ranking$')
 PATTERN_PLAYED = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|[\w.-]+>)\s+([0-9]+))+)$')
 PATTERN_CHARACTERS = re.compile('^characters$')
 PATTERN_ADD_CHARACTER = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
@@ -46,5 +48,7 @@ def handle(slack_request):
         return set_name.handle(username, command_text)
     elif PATTERN_SET_CHARACTER.match(command_text):
         return set_character.handle(username, command_text)
+    elif PATTERN_SKILL.match(command_text):
+        return skill_rankings.handle()
     else:
         return helper.handle()

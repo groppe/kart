@@ -8,7 +8,7 @@ from lib.data import characters as character_data
 
 @webutil.log_event
 def create(event, context):
-    data = json.loads(event['body'])
+    return webutil.respond_not_implemented()
 
 
 @webutil.log_event
@@ -22,14 +22,14 @@ def all(event, context):
 
 @webutil.log_event
 def get(event, context):
-    id = event['pathParameters']['id']
+    return webutil.respond_not_implemented()
 
 
 @webutil.log_event
 def update(event, context):
-    data = json.loads(event['body'])
+    return webutil.respond_not_implemented()
 
 
 @webutil.log_event
 def delete(event, context):
-    id = event['pathParameters']['id']
+    return webutil.respond_not_implemented()

@@ -2,6 +2,7 @@
 import json
 import lib.common.web as webutil
 import lib.common.slack as slackutil
+import lib.rank as rank
 import re
 import time
 from lib.data import games as game_data
@@ -31,6 +32,11 @@ def handle(command_text):
         'scores': scores
     }
 
+    last_game = game_data.get_last_game()
+    matrix_curr = last_game['skill_matrix']
+    matrix_updated = rank.update_rank_matrix_with_game(matrix_curr, game)
+    game['skill_matrix'] = matrix_updated
+
     game_data.add_game(game)
 
     scores = sorted(scores, key=lambda k: k['average'], reverse=True)
@@ -55,6 +61,4 @@ def parse_results(text):
 
 def parse_race_count(text):
     return int(text.split(' ')[1])
-    
-
 

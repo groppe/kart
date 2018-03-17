@@ -27,7 +27,6 @@ def skill_rank():
     
     combs = list(combinations(range(0, all_players.count()), 2))
     combs.extend(list(zip(range(all_players.count()), range(all_players.count()))))
-    pprint(combs)
     
     for pair in combs:
         last_matrix[pair[0]][pair[1]] = sum(last_matrix[pair[0]][pair[1]])

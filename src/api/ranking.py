@@ -11,3 +11,10 @@ def average(event, context):
         'rankings': rank.average_individual()
     }
     return webutil.respond_success_json(json.dumps(ranking_average))
+
+@webutil.log_event
+def skill(event, context):
+    ranking_skill = {
+        'rankings': rank.skill_rank()
+    }
+    return webutil.respond_success_json(json.dumps(ranking_skill))

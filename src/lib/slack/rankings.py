@@ -19,6 +19,6 @@ def handle():
 
     # covert the table to format that Slack will understand
     table_string = '```' + table.get_string(border=True) + '```'
-    slack_response = slackutil.in_channel_response(table_string)
+    slack_response = slackutil.ephemeral_response(table_string)
 
     return webutil.respond_success_json(json.dumps(slack_response))

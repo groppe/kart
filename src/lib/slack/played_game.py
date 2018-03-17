@@ -47,7 +47,7 @@ def handle(command_text):
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
         response_text += ': ' + str(score['average'])
     response_text += '\n-------------------'
-    response_text += '\nCheck out the updated rankings at http://kartskills.com/dashboard!'
+    response_text += '\nCheck out the updated rankings at http://kartskills.com!'
 
     slack_body = slackutil.in_channel_response(response_text)
     return webutil.respond_success_json(json.dumps(slack_body))

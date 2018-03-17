@@ -46,6 +46,7 @@ def handle(command_text):
         player_cursor = player_data.get_player(score['player_id']) or {}
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
         response_text += ': ' + str(score['average'])
+    response_text += '\n-------------------'
     response_text += '\nCheck out the updated rankings at http://kartskills.com/dashboard!'
 
     slack_body = slackutil.in_channel_response(response_text)

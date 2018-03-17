@@ -25,7 +25,6 @@ def skill_rank():
     last_game = game_data.get_last_game()
     last_matrix = last_game['skill_matrix']
     
-    #M=M**5
     combs = list(combinations(range(0, all_players.count()), 2))
     combs.extend(list(zip(range(all_players.count()), range(all_players.count()))))
     pprint(combs)
@@ -56,13 +55,15 @@ def skill_rank():
     all_players = player_data.all_players()
     rankings = []
     for player in all_players:
-        player_entry = create_player_entry(player, x[player['index'], 0])
+        rounded = "{0:.4f}".format(x[player['index'], 0])
+        player_entry = create_player_entry(player, rounded)
         rankings.append(player_entry)
     
     return sorted(rankings, key=lambda player: player['average'], reverse=True)
 
 
 def update_player_history_array(p1_vs_p2_arr, p1_average, p2_average, keep=GAME_HISTORY_RANGE):
+    #p1_vs_p2_arr.insert(0, p1_average)
     if p1_average > p2_average:
         p1_vs_p2_arr.insert(0, 1)
     else:
@@ -92,7 +93,10 @@ def update_rank_matrix_with_game(matrix, game):
 
 def populate_skill_matrix():
     all_players = player_data.all_players()
+    player_count = all_players.count()
     games = []
+
+    # get the last 25 games for each player
     for player in player_data.all_players():
         games.extend(list(game_data.games_for_player(player['_id'], 25, 0)))
 
@@ -100,7 +104,6 @@ def populate_skill_matrix():
     games = [i for n, i in enumerate(games) if i not in games[n + 1:]]
     games = sorted(games, key=lambda game: game['datetime'])
 
-    player_count = all_players.count()
     matrix = zeros((player_count, player_count, GAME_HISTORY_RANGE), float).tolist()
     game_counter = 0
     for game in games:

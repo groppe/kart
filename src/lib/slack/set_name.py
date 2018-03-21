@@ -1,6 +1,6 @@
 #!/usr/bin/python3.6
 import re
-import lib.webutil as webutil
+from lib.common import web as webutil
 from lib.data import characters as character_data
 from lib.data import players as player_data
 

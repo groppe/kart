@@ -1,8 +1,7 @@
 #!/usr/bin/python3.6
 import json
 import unittest
-
-from lib import webutil as webutil
+from lib.common import web as webutil
 
 
 class RankTests(unittest.TestCase):

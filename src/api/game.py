@@ -1,23 +1,17 @@
 #!/usr/bin/python3.6
 import json
+import lib.common.web as webutil
 import logging
 import re
-from lib import webutil as webutil
 from lib.data import games as game_data
 from bson.json_util import dumps
 
+@webutil.log_event
 def create(event, context):
-    logging.critical(event)
+    return webutil.respond_not_implemented()
 
-    request_body = webutil.parse_event_for_request_body(event)
-    if not request_body:
-        return webutil.respond_bad_request('to add a game, include the number of games and at least two players')
 
-    request_data = json.loads(request_body)
-    slack_id = request_data.get('slack_id', None)
-    if not slack_id:
-        return webutil.respond_bad_request('to create a player, include at least their Slack id')
-
+@webutil.log_event
 def all(event, context):
     queryStringParameters = event.get('queryStringParameters') or {}
     size = int(queryStringParameters.get('size') or 25)
@@ -38,6 +32,8 @@ def all(event, context):
     }
     return webutil.respond_success_json(dumps(response))
 
+
+@webutil.log_event
 def get(event, context):
     game_id = event['pathParameters']['id']
     game = game_data.game_by_id(game_id)
@@ -46,10 +42,13 @@ def get(event, context):
     
     return webutil.respond_success_json(dumps(game))
 
-def update(event, context):
-    logging.critical(event)
-    data = json.loads(event['body'])
 
+@webutil.log_event
+def update(event, context):
+    return webutil.respond_not_implemented()
+
+
+@webutil.log_event
 def delete(event, context):
     game_id = event['pathParameters']['id']
     if not game_data.game_by_id(game_id):

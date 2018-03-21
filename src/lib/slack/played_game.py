@@ -1,9 +1,10 @@
 #!/usr/bin/python3.6
 import json
+import lib.common.web as webutil
+import lib.common.slack as slackutil
+import lib.rank as rank
 import re
 import time
-import lib.slack.util as slackutil
-from lib import webutil
 from lib.data import games as game_data
 from lib.data import players as player_data
 
@@ -31,6 +32,11 @@ def handle(command_text):
         'scores': scores
     }
 
+    last_game = game_data.get_last_game()
+    matrix_curr = last_game['skill_matrix']
+    matrix_updated = rank.update_rank_matrix_with_game(matrix_curr, game)
+    game['skill_matrix'] = matrix_updated
+
     game_data.add_game(game)
 
     scores = sorted(scores, key=lambda k: k['average'], reverse=True)
@@ -40,6 +46,8 @@ def handle(command_text):
         player_cursor = player_data.get_player(score['player_id']) or {}
         response_text += '\n' + player_cursor.get('name', '<Unknown>')
         response_text += ': ' + str(score['average'])
+    response_text += '\n-------------------'
+    response_text += '\nCheck out the updated rankings at http://kartskills.com!'
 
     slack_body = slackutil.in_channel_response(response_text)
     return webutil.respond_success_json(json.dumps(slack_body))
@@ -55,6 +63,4 @@ def parse_results(text):
 
 def parse_race_count(text):
     return int(text.split(' ')[1])
-    
-
 

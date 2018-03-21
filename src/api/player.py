@@ -1,14 +1,14 @@
 #!/usr/bin/python3.6
 import json
+import lib.common.web as webutil
 import logging
 import lib.slack.add_player as player_service
 import lib.slack.set_character as character_service
-from lib import webutil as webutil
 from lib.data import players as player_data
 
+
+@webutil.log_event
 def create(event, context):
-    logging.critical(event)
-    
     request_body = webutil.parse_event_for_request_body(event)
     if not request_body:
         return webutil.respond_bad_request('to create a player, include at least their Slack id')
@@ -37,18 +37,18 @@ def create(event, context):
 
     return webutil.respond_success(slack_id)
 
-def all(event, context):
-    logging.critical(event)
 
+@webutil.log_event
+def all(event, context):
     all_players = player_data.all_players()
     response = {
         'players': list(all_players)
     }
     return webutil.respond_success_json(json.dumps(response))
 
-def get(event, context):
-    logging.critical(event)
 
+@webutil.log_event
+def get(event, context):
     slack_id = event['pathParameters']['id']
     player = player_data.get_player(slack_id)
     if player is None:
@@ -56,9 +56,9 @@ def get(event, context):
     
     return webutil.respond_success_json(json.dumps(player))
 
+
+@webutil.log_event
 def update(event, context):
-    logging.critical(event)
-    
     slack_id = event['pathParameters']['id']
     if not player_service.player_exists(slack_id):
         return webutil.respond_not_found('a player with this Slack id does not exist')
@@ -92,9 +92,9 @@ def update(event, context):
 
     return webutil.respond_success(slack_id)
 
+
+@webutil.log_event
 def delete(event, context):
-    logging.critical(event)
-    
     slack_id = event['pathParameters']['id']
     if not player_service.player_exists(slack_id):
         return webutil.respond_not_found('a player with this Slack id does not exist')

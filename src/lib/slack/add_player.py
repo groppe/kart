@@ -1,8 +1,8 @@
 #!/usr/bin/python3.6
 import json
 import re
-import lib.webutil as webutil
-import lib.slack.util as slackutil
+import lib.common.web as webutil
+import lib.common.slack as slackutil
 from lib.data import players as player_data
 
 def handle(command_text):

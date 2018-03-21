@@ -1,6 +1,6 @@
 #!/usr/bin/python3.6
 import re
-import lib.webutil as webutil
+import lib.common.web as webutil
 from lib.data import characters as character_data
 from lib.data import players as player_data
 
@@ -12,7 +12,7 @@ def handle(userid, command_text):
 
     command_text_components = re.split(r'[\"\"]', command_text)
     character_name = command_text_components[1]
-    if character_exists(character_name):
+    if not character_exists(character_name):
         return webutil.respond_success('A character with that name does not exist.')
 
     player_data.update_player_character(userid, character_name)

@@ -151,3 +151,11 @@ functions:
           path: api/ranking/average
           method: get
           cors: true
+
+  get_skill_ranking:
+    handler: api/ranking.skill
+    events:
+      - http:
+          path: api/ranking/skill
+          method: get
+          cors: true

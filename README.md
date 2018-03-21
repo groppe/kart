@@ -58,6 +58,7 @@ sls deploy [--stage dev/test/prod/etc.]
 
 * [Travis CI](https://travis-ci.org/) - Continuous Integration/Continuous Deployment
 * [Serverless](https://serverless.com/) - The deployment framework used
+* [Newman](https://github.com/postmanlabs/newman) - Integration tests
 * [MongoDB](https://www.mongodb.com/) - Database
 * [NPM](https://www.npmjs.com/) - Node Dependency Management
 * [pip](https://pip.pypa.io/en/stable/) - Python Dependency Management

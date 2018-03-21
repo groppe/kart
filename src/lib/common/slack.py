@@ -1,7 +1,9 @@
 #!/usr/bin/python3.6
+import json
 import logging
 import os
 import sys
+from functools import wraps
 from urllib import parse as urlparse
 
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
@@ -9,6 +11,16 @@ SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 if SLACK_TOKEN is None:  # pragma: no cover
     logging.critical("SLACK_TOKEN environment variable must be set")
     sys.exit(1)
+
+
+def parse_and_log_slack_body(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        event = args[0]
+        slack_request = parse_input(event['body'])
+        logging.critical(json.dumps(slack_request))
+        return func(slack_request)
+    return wrapper
 
 
 def parse_input(data):
@@ -19,8 +31,8 @@ def parse_input(data):
     return result
 
 
-def validate_slack_token(request_data):
-    if request_data.get('token', '') == SLACK_TOKEN:
+def validate_slack_token(slack_request):
+    if slack_request.get('token', '') == SLACK_TOKEN:
         return True
     else:
         return False

@@ -1,8 +1,8 @@
 #!/usr/bin/python3.6
 import json
 from lib.data import characters as character_data
-import lib.webutil as webutil
-import lib.slack.util as slackutil
+import lib.common.web as webutil
+import lib.common.slack as slackutil
 
 
 def handle():

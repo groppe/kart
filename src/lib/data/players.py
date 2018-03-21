@@ -2,6 +2,10 @@
 from lib.data.mongodb import player_collection
 
 
+def player_count():
+    return player_collection.count()
+
+
 def all_players():
     return player_collection.find({ 'active': True })
 

@@ -1,17 +1,16 @@
 #!/usr/bin/python3.6
 import json
 import prettytable
-import lib.rank as ranking
+import lib.rank as rank
 import lib.common.web as webutil
 import lib.common.slack as slackutil
 
-
 def handle():
     # retrieve the rankings
-    rankings = ranking.average_individual()
+    rankings = rank.skill_rank()
 
     # initialize the text table
-    table = prettytable.PrettyTable(['Rank', 'Player', 'Character', 'Average'])
+    table = prettytable.PrettyTable(['Rank', 'Player', 'Character', 'Skill'])
 
     # add each ranking entry to the table
     for index, player in enumerate(rankings):

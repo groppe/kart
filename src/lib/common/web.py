@@ -1,9 +1,20 @@
 #!/usr/bin/python3.6
 import json
+import logging
+from functools import wraps
 
 
 def parse_event_for_request_body(event):
     return event.get('body', None)
+
+
+def log_event(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        event = args[0]
+        logging.critical(event)
+        return func(*args, **kwargs)
+    return wrapper
 
 
 def respond_success(message):
@@ -80,4 +91,18 @@ def respond_not_found(message):
             'Access-Control-Allow-Origin': '*'
         },
         'body': message
+    }
+
+
+def respond_not_implemented():
+    not_implemented = {
+        'message': 'this method has not been implemented yet'
+    }
+    return {
+        'statusCode': 501,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': json.dumps(not_implemented)
     }

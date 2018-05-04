@@ -21,7 +21,7 @@ PATTERN_SKILL= re.compile('^skill ranking$')
 PATTERN_PLAYED = re.compile('^(played\s+\d+\s+games)((,\s+(<@\w+\|[\w.-]+>)\s+([0-9]+))+)$')
 PATTERN_CHARACTERS = re.compile('^characters$')
 PATTERN_ADD_CHARACTER = re.compile('^(add character\\s)(\".*\"\\s)([^\\s]+)$')
-PATTERN_ADD_PLAYER = re.compile('^add player <@\w+\|\w+>$')
+PATTERN_ADD_PLAYER = re.compile('^add player <@\w+\|[\w\.]+>$')
 PATTERN_SET_NAME = re.compile('^my name is \".*\"$')
 PATTERN_SET_CHARACTER = re.compile('^my character is \".*\"$')
 

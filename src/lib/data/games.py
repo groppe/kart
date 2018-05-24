@@ -27,6 +27,11 @@ def games_for_player(player_id, page_size=25, skip=0):
             }
         },
         {
+            "$project": {
+                "skill_matrix": 0
+            }
+        },
+        {
             "$sort": {
                 "datetime": -1
             }

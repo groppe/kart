@@ -3,6 +3,8 @@ import json
 import re
 import lib.common.web as webutil
 import lib.common.slack as slackutil
+from lib import rank as rank
+
 from lib.data import players as player_data
 
 def handle(command_text):
@@ -14,6 +16,8 @@ def handle(command_text):
 
     index_of_new_player = determine_players_index()
     player_data.add_player_with_id(new_player_id, index_of_new_player)
+
+    rank.increment_skill_matrix_size()
 
     slack_response = slackutil.in_channel_response('Alright, <@' + new_player_id + '> is ready to play!')
     return webutil.respond_success_json(json.dumps(slack_response))

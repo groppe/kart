@@ -114,6 +114,22 @@ def populate_skill_matrix():
     game_data.update_game_skill_matrix(last_game['_id'], matrix)
 
 
+def increment_skill_matrix_size():
+    last_game = game_data.get_last_game()
+    matrix_curr = last_game['skill_matrix']
+
+    player_count = len(matrix_curr)
+    blank_vs_history = [0.0] * GAME_HISTORY_RANGE
+
+    for vs in matrix_curr:
+        vs.append(blank_vs_history)
+
+    new_player_row = zeros((player_count + 1, GAME_HISTORY_RANGE), float).tolist()
+    matrix_curr.append(new_player_row)
+
+    game_data.update_game_skill_matrix(last_game['_id'], matrix_curr)
+
+
 def instantiate_empty_array():
     return []
 

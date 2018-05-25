@@ -16,7 +16,8 @@ def average_individual():
         games = game_data.games_for_player(player['_id'], GAME_HISTORY_RANGE, 0)
         score = calculate_average_score_for_player(games, player['_id'])
         player_entry = create_player_entry(player, score)
-        rankings.append(player_entry)
+        if player_entry['active'] is True:
+            rankings.append(player_entry)
 
     return sorted(rankings, key=lambda player: player['average'], reverse=True)
 
@@ -56,7 +57,8 @@ def skill_rank():
     for player in all_players:
         rounded = "{0:.4f}".format(x[player['index'], 0])
         player_entry = create_player_entry(player, rounded)
-        rankings.append(player_entry)
+        if player_entry['active'] is True:
+            rankings.append(player_entry)
     
     return sorted(rankings, key=lambda player: player['average'], reverse=True)
 
@@ -171,7 +173,8 @@ def create_player_entry(cursor, average):
         'id': get_player_id(cursor),
         'name': get_player_name(cursor),
         'character': get_player_character(cursor),
-        'average': average
+        'average': average,
+        'active': get_player_active(cursor)
     }
 
 
@@ -185,3 +188,6 @@ def get_player_name(cursor):
 
 def get_player_character(cursor):
     return cursor.get('character', '<Unknown>')
+
+def get_player_active(cursor):
+    return cursor.get('active', True)

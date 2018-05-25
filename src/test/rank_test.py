@@ -239,7 +239,8 @@ class RankTests(unittest.TestCase):
         cursor = {
             '_id': id,
             'name': name,
-            'character': character
+            'character': character,
+            'active': True
         }
         average = 1.23
 
@@ -251,7 +252,8 @@ class RankTests(unittest.TestCase):
             'id': id,
             'name': name,
             'character': character,
-            'average': average
+            'average': average,
+            'active': True
         }
         self.assertDictEqual(result, player)
 

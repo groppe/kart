@@ -7,7 +7,7 @@ def player_count():
 
 
 def all_players():
-    return player_collection.find({ 'active': True })
+    return player_collection.find()
 
 
 def get_player(player_id):

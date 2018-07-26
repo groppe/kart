@@ -7,6 +7,10 @@ import lib.common.slack as slackutil
 
 
 def handle():
+    # send initial OK response
+    ok_slack_response = slackutil.in_channel_response('loading results...')
+    webutil.respond_success_json(json.dumps(ok_slack_response))
+
     # retrieve the rankings
     rankings = ranking.average_individual()
 
